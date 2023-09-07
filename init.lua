@@ -8,7 +8,7 @@ if not vim.loop.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable',     -- latest stable release
+    '--branch=stable', -- latest stable release
     lazypath,
   }
 end
@@ -128,6 +128,7 @@ require('lazy').setup({
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'kanagawa'
+      -- local bg = '#1F1F28'
     end,
   },
 
@@ -213,7 +214,7 @@ require('lazy').setup({
 vim.o.hlsearch = false
 
 -- Make line numbers default
-vim.wo.number = true
+-- vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -232,7 +233,8 @@ vim.opt.expandtab = true
 vim.o.swapfile = false
 vim.opt.smartindent = true
 
-vim.opt.relativenumber = true
+vim.opt.nu = false
+vim.opt.cmdheight = 2
 
 -- Save undo history
 vim.o.undofile = true
@@ -254,6 +256,9 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+vim.cmd([[
+  hi SignColumn guibg=#1F1F28
+]])
 
 -- [[ Basic Keymaps ]]
 
@@ -315,6 +320,16 @@ vim.keymap.set('i', 'jk', "<Esc>", { noremap = true })
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = '[O]pen [N]etrw' })
 vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set('n', '<leader>b', ':SimpleBufferToggle<CR>', { desc = 'Toggles Open Buffers' })
+vim.keymap.set('n', '<leader>n', ':lua toggle_line_number()<CR>', { desc = 'Toggles Line Number' })
+
+function toggle_line_number()
+  vim.o.number = not vim.o.number
+  if vim.o.number == true then
+    vim.o.relativenumber = true
+  else
+    vim.o.relativenumber = false
+  end
+end
 
 local comment = require('Comment').setup({
   toggler = {
@@ -358,7 +373,7 @@ require('nvim-treesitter.configs').setup {
   textobjects = {
     select = {
       enable = true,
-      lookahead = true,       -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
         ['aa'] = '@parameter.outer',
@@ -371,7 +386,7 @@ require('nvim-treesitter.configs').setup {
     },
     move = {
       enable = true,
-      set_jumps = true,       -- whether to set jumps in the jumplist
+      set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         [']m'] = '@function.outer',
         [']]'] = '@class.outer',
