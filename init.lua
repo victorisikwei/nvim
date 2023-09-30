@@ -292,6 +292,11 @@ vim.opt.smartcase = true
 -- change CWD to that of the current buffer
 vim.opt.autochdir = true
 
+vim.opt.wildmode = 'longest,list'
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Keep signcolumn on by default
 -- vim.wo.signcolumn = 'yes'
 vim.opt.cursorline = true
@@ -367,6 +372,7 @@ vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = '[O]pen [N]etrw' })
 vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set('n', '<leader>b', ':SimpleBufferToggle<CR>', { desc = 'Toggles Open Buffers' })
 vim.keymap.set('n', '<leader>n', ':lua toggle_line_number()<CR>', { desc = 'Toggles Line Number' })
+vim.keymap.set('n', '<leader>x', ':close<CR>', { desc = 'Kill Buffer' })
 
 -- moves line up or down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
