@@ -33,6 +33,11 @@ require('lazy').setup({
 
   },
 
+  {
+    'karb94/neoscroll.nvim',
+    config = function() require('neoscroll').setup() end
+  },
+
   -- lazy.nvim:
   {
     "smoka7/multicursors.nvim",
@@ -373,6 +378,11 @@ vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set('n', '<leader>b', ':SimpleBufferToggle<CR>', { desc = 'Toggles Open Buffers' })
 vim.keymap.set('n', '<leader>n', ':lua toggle_line_number()<CR>', { desc = 'Toggles Line Number' })
 vim.keymap.set('n', '<leader>x', ':close<CR>', { desc = 'Kill Buffer' })
+
+vim.keymap.set('n', '<Left>', ':vertical resize +2<CR>', { noremap = true })
+vim.keymap.set('n', '<Right>', ':vertical resize -2<CR>', { noremap = true })
+vim.keymap.set('n', '<Up>', ':resize +2<CR>', { noremap = true })
+vim.keymap.set('n', '<Down>', ':resize -2<CR>', { noremap = true })
 
 -- moves line up or down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
