@@ -20,6 +20,8 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'ericvw/vim-nim',
+  'Tetralux/odin.vim',
+  'jfecher/vale.vim',
 
   -- Detect tabstop and shiftwidth automatically
   -- 'tpope/vim-sleuth',
@@ -29,6 +31,31 @@ require('lazy').setup({
     'windwp/nvim-autopairs',
     event = "InsertEnter",
 
+  },
+
+  -- lazy.nvim:
+  {
+    "smoka7/multicursors.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      'smoka7/hydra.nvim',
+    },
+    opts = {},
+    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+    keys = {
+      {
+        mode = { 'v', 'n' },
+        '<Leader>m',
+        '<cmd>MCstart<cr>',
+        desc = 'Create a selection for selected text or word under the cursor',
+      },
+    },
+  },
+
+  {
+    'nvim-lua/popup.nvim',
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope-media-files.nvim',
   },
 
   {
@@ -82,11 +109,18 @@ require('lazy').setup({
 
   {
     -- Autocompletion
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
+    'neovim/nvim-lspconfig',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
+      --[[ 'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip', ]]
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
@@ -210,55 +244,67 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+vim.cmd([[
+  syntax enable
+  hi SignColumn guibg=#1F1F28
+]])
+
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.opt.hlsearch = false
+
+
 
 -- Make line numbers default
 -- vim.wo.number = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.opt.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
--- vim.o.breakindent = true
+
+vim.opt.breakindent = true
+-- vim.opt.smartindent = true
+
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
-vim.o.shiftwidth = 2
+vim.opt.shiftwidth = 2
+
 vim.opt.expandtab = true
-vim.o.swapfile = false
-vim.opt.smartindent = true
+vim.opt.swapfile = false
 
 vim.opt.nu = false
 vim.opt.cmdheight = 2
 
+vim.opt.scrolloff = 8
+
 -- Save undo history
-vim.o.undofile = true
+-- vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- change CWD to that of the current buffer
+vim.opt.autochdir = true
 
 -- Keep signcolumn on by default
 -- vim.wo.signcolumn = 'yes'
-vim.o.cursorline = true
+vim.opt.cursorline = true
 
 -- Decrease update time
-vim.o.updatetime = 80
-vim.o.timeoutlen = 100
+vim.opt.updatetime = 80
+vim.opt.timeoutlen = 100
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.opt.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-vim.cmd([[
-  hi SignColumn guibg=#1F1F28
-]])
+vim.opt.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
@@ -322,12 +368,39 @@ vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set('n', '<leader>b', ':SimpleBufferToggle<CR>', { desc = 'Toggles Open Buffers' })
 vim.keymap.set('n', '<leader>n', ':lua toggle_line_number()<CR>', { desc = 'Toggles Line Number' })
 
+-- moves line up or down
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv")
+
+-- Leaves your cursor a the begining, during add lines
+vim.keymap.set("n", "J", "mzJ`z")
+-- Allow cursor to stay in the middle
+-- during page up or down
+vim.keymap.set("n", "C-d", "<C-d>zz")
+vim.keymap.set("n", "C-u", "<C-u>zz")
+
+-- Allow search term to stay in the middle
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+-- no conflict with clipboard
+vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>Y", "\"+Y")
+-- search and replace
+vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- make script executable
+-- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+
+
+
 function toggle_line_number()
-  vim.o.number = not vim.o.number
-  if vim.o.number == true then
-    vim.o.relativenumber = true
+  vim.opt.number = not vim.o.number
+  if vim.opt.number == true then
+    vim.opt.relativenumber = vim.o.relativenumber
   else
-    vim.o.relativenumber = false
+    vim.opt.relativenumber = not vim.o.relativenumber
   end
 end
 
@@ -345,6 +418,9 @@ vim.keymap.set("n", "<leader>l", ":wincmd l<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>k", ":wincmd k<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>h", ":wincmd h<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>j", ":wincmd j<CR>", { noremap = true })
+
+require('telescope').load_extension('media_files')
+vim.keymap.set("n", "<C-m>", ":Telescope media_files<CR>", { noremap = true })
 
 require('mini.indentscope').setup({
   symbol = "𝆺𝅥"
@@ -531,11 +607,6 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -559,9 +630,35 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  }),
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  }),
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    {
+      name = 'buffer',
+      opts = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+    { name = 'path' },
   },
 }
 
