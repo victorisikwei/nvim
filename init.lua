@@ -275,9 +275,9 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
 -- vim.opt.smartindent = true
 
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
 vim.opt.expandtab = true
 vim.opt.swapfile = false
@@ -378,6 +378,8 @@ vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set('n', '<leader>b', ':SimpleBufferToggle<CR>', { desc = 'Toggles Open Buffers' })
 vim.keymap.set('n', '<leader>n', ':lua toggle_line_number()<CR>', { desc = 'Toggles Line Number' })
 vim.keymap.set('n', '<leader>x', ':close<CR>', { desc = 'Kill Buffer' })
+vim.keymap.set('n', '<leader><Space>', ':e ~/', { desc = 'find files' })
+vim.keymap.set('n', '<leader>1', ':q!<CR>', { desc = 'Quit without modification to file' })
 
 vim.keymap.set('n', '<Left>', ':vertical resize +2<CR>', { noremap = true })
 vim.keymap.set('n', '<Right>', ':vertical resize -2<CR>', { noremap = true })
@@ -571,6 +573,7 @@ local servers = {
   clangd = {},
   -- gopls = {},
   pyright = {},
+  -- mojo-lsp-server = {},
   -- rust_analyzer = {},
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
