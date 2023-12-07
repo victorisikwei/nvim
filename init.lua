@@ -32,6 +32,35 @@ require('lazy').setup({
     event = "InsertEnter",
 
   },
+  {
+    'stevearc/oil.nvim',
+    opts = {
+      keymaps = {
+        ["g?"] = "actions.show_help",
+        -- ["<CR>"] = "actions.select",
+        ["<C-v>"] = "actions.select_vsplit",
+        ["<C-h>"] = "actions.select_split",
+        -- ["<C-t>"] = "actions.select_tab",
+        ["<C-p>"] = "actions.preview",
+        ["<C-c>"] = "actions.close",
+        ["<C-l>"] = "actions.refresh",
+        ["-"] = "actions.parent",
+        ["_"] = "actions.open_cwd",
+        ["`"] = "actions.cd",
+        ["~"] = "actions.tcd",
+        ["gs"] = "actions.change_sort",
+        ["gx"] = "actions.open_external",
+        ["g."] = "actions.toggle_hidden",
+        -- ["g\\"] = "actions.toggle_trash",
+      },
+    },
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+
+  {
+    'chrisbra/Colorizer'
+  },
 
   {
     'karb94/neoscroll.nvim',
@@ -163,10 +192,11 @@ require('lazy').setup({
 
   {
     -- Theme inspired by Atom
-    'rebelot/kanagawa.nvim',
+    -- 'rebelot/kanagawa.nvim',
+    'numToStr/Sakura.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'kanagawa'
+      vim.cmd.colorscheme 'sakura'
       -- local bg = '#1F1F28'
     end,
   },
@@ -178,7 +208,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'kanagawa',
+        theme = 'sakura',
         component_separators = '|',
         section_separators = '',
       },
@@ -373,7 +403,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]resume' })
 vim.keymap.set('i', 'jk', "<Esc>", { noremap = true })
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = '[O]pen [N]etrw' })
+vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = '[O]pen [O]il' })
 vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set('n', '<leader>b', ':SimpleBufferToggle<CR>', { desc = 'Toggles Open Buffers' })
 vim.keymap.set('n', '<leader>n', ':lua toggle_line_number()<CR>', { desc = 'Toggles Line Number' })
@@ -570,13 +600,13 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  clangd = {},
+  -- clangd = {},
   -- gopls = {},
-  pyright = {},
+  -- pyright = {},
   -- mojo-lsp-server = {},
   -- rust_analyzer = {},
-  tsserver = {},
-  html = { filetypes = { 'html', 'twig', 'hbs' } },
+  -- tsserver = {},
+  -- html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   lua_ls = {
     Lua = {
@@ -600,6 +630,8 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
+local lspconfig = require('lspconfig')
+lspconfig.ols.setup({})
 
 mason_lspconfig.setup_handlers {
   function(server_name)
