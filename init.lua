@@ -10,8 +10,6 @@ vim.opt.splitright = true
 vim.opt.whichwrap = "bs<>[]hl"
 vim.opt.splitbelow = true
 vim.opt.smartindent = true
- -- always show tabs
--- vim.opt.showtabline = 2   
 vim.opt.updatetime = 100
 vim.opt.timeoutlen = 100
 -- don't split word in word wrap
