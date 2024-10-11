@@ -56,7 +56,6 @@ vim.keymap.set("n", "<C-Down>", ":resize -1<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>")
 
--- Visual Block --
 -- Move text up and down
 vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv")
