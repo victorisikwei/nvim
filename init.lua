@@ -73,7 +73,7 @@ vim.keymap.set("n", "<leader>h", ":silent hide<CR>")
 
 -- Terminals
 vim.keymap.set("n", "<C-t>", "<cmd>silent terminal<CR>")
-vim.keymap.set("t", "<Esc>", "exit<CR>")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>:bdelete!<CR>")
 
 -- Super search
 vim.keymap.set("n", "<C-s>", ":%s/")
