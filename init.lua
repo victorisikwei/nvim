@@ -61,13 +61,14 @@ vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv")
 
 -- Lexplore right
-vim.keymap.set("n", "<leader>e", "<cmd>silent 20Lexplore!<CR>")
+vim.keymap.set("n", "<leader>e", "<cmd>silent Sexplore<CR>")
 vim.cmd([[ autocmd BufLeave * if &filetype == 'netrw' | bd | endif ]])
 -- vim.cmd([[nnoremap <buffer> <CR> :Lexplore!<CR> ]])
 -- Find file
-vim.keymap.set("n", "<leader>f", ":e ./")
+vim.keymap.set("n", "<leader>f", ":FZF ~/")
+vim.keymap.set("n", "?", ":Rg<CR>")
 -- Buffers
-vim.keymap.set("n", "<leader><Tab>", ":b ")
+vim.keymap.set("n", "<leader><Tab>", ":Buffers<CR>")
 -- Hide buffer unless it's the last window on the screen 
 vim.keymap.set("n", "<leader>h", ":silent hide<CR>")
 
@@ -180,6 +181,13 @@ require("lazy").setup({
 		},
 		{
 			"lambdalisue/suda.vim",
+			opts = {},
+			config = function() 
+			end
+		},
+		{
+			"junegunn/fzf",
+  		dependencies = { "junegunn/fzf.vim" },
 			opts = {},
 			config = function() 
 			end
