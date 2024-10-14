@@ -40,11 +40,12 @@ vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 -- Better vertical movement
-vim.keymap.set("n", "<S-j>", "<C-d>")
-vim.keymap.set("n", "<S-k>", "<C-u>")
+--  vim.keymap.set("n", "<S-j>", "<C-d>zz")
+--  vim.keymap.set("n", "<S-k>", "<C-u>zz")
 
-vim.keymap.set("v", "<S-j>", "}")
-vim.keymap.set("v", "<S-k>", "{")
+-- vim.keymap.set("v", "<S-j>", "}")
+-- vim.keymap.set("v", "<S-k>", "{")
+
 -- End 2 End
 vim.keymap.set("n", "<S-e>", "$")
 vim.keymap.set("n", "<S-b>", "^")
