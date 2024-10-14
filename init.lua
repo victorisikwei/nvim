@@ -13,7 +13,7 @@ vim.opt.smartindent = true
 vim.opt.updatetime = 100
 vim.opt.timeoutlen = 100
 -- don't split word in word wrap
-vim.opt.linebreak = true 
+vim.opt.linebreak = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.o.guifont = "FiraCode Nerd Font:h11"
@@ -86,13 +86,16 @@ end)
 
 
 -- Neovim builtin auto-completion
-vim.cmd([[
+--[[
+vim.cmd(
+	[[
 	inoremap <expr><Tab> CheckBackspace() ? "\<Tab>" : "\<C-n>"
 	function! CheckBackspace() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 	endfunction
-]])
+ ]]
+ --)
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -124,7 +127,7 @@ vim.cmd([[
 if vim.g.neovide == true then
   -- vim.o.guifont = "FiraCode Nerd Font:h8"
 	 -- vim.o.guifont = "Source Code Pro:h11" -- text below applies for VimScript
-  vim.opt.linespace = 10
+  vim.opt.linespace = 1
   vim.g.neovide_cursor_trail_size = 0
   vim.g.neovide_hide_mouse_when_typing = false
   vim.api.nvim_set_keymap(
@@ -140,6 +143,7 @@ if vim.g.neovide == true then
     { silent = true }
   )
   vim.api.nvim_set_keymap("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
+  vim.api.nvim_set_keymap("n", "<Home>", "<Nop>", { silent = true })
 end
 
 
@@ -187,7 +191,7 @@ require("lazy").setup({
 		},
 		{
 			"junegunn/fzf",
-  		dependencies = { "junegunn/fzf.vim" },
+			dependencies = { "junegunn/fzf.vim" },
 			opts = {},
 			config = function() 
 			end
@@ -205,15 +209,100 @@ require("lazy").setup({
 				{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
 			},
 		},
+		{
+			"nvim-treesitter/nvim-treesitter",
+			opts = {},
+			config = function()
+			end
+		},
+		{
+			{'VonHeikemen/lsp-zero.nvim', branch = 'v4.x'},
+			{'neovim/nvim-lspconfig'},
+			{'hrsh7th/cmp-nvim-lsp'},
+			{'hrsh7th/nvim-cmp'},
+			{'williamboman/mason.nvim'},
+			{'williamboman/mason-lspconfig.nvim'},
+		},
 		-- colorscheme that will be used when installing plugins.
 		install = { colorscheme = { "habamax" } },
 		-- automatically check for plugin updates
 		checker = { enabled = false },
 	}
-})
+
+}) -- Enc of Lazy prlgin in manager
 
 -- SET COLORSCHEME
 vim.cmd("colorscheme kanagawa")
 vim.cmd([[
 	highlight Normal ctermbg=0 guibg=#000000
+	highlight SignColumn ctermbg=0 guibg=#000000
 ]])
+
+-- LSP
+
+-- vim.opt.signcolumn = 'yes'
+
+-- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- This should be executed before you configure any language server
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
+
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function(event)
+    local opts = {buffer = event.buf}
+
+    vim.keymap.set('n', 'H', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+  end,
+})
+
+--Mason
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
+  },
+})
+
+-- Autocomplition
+local cmp = require('cmp')
+cmp.setup({
+  sources = {
+    {name = 'nvim_lsp'},
+  },
+  mapping = cmp.mapping.preset.insert({
+    -- Navigate between completion items
+    ['<S-Tab>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+    ['<Tab>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+
+    -- `Enter` key to confirm completion
+    ['<CR>'] = cmp.mapping.confirm({select = false}),
+    -- Ctrl+Space to trigger completion menu
+    ['<C-Space>'] = cmp.mapping.complete(),
+    -- Scroll up and down in the completion documentation
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+  }),
+  snippet = {
+    expand = function(args)
+      vim.snippet.expand(args.body)
+    end,
+  },
+})
