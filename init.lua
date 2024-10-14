@@ -16,8 +16,8 @@ vim.opt.timeoutlen = 100
 vim.opt.linebreak = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.o.guifont = "FiraCode Nerd Font:h11"
-
+-- vim.o.guifont = "FiraCode Nerd Font:h11"
+vim.o.guifont = "Sligoil Micro:h15"
 --
 --
 -- KEYMAPS
@@ -40,8 +40,9 @@ vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 -- Better vertical movement
-vim.keymap.set("n", "<S-j>", "}")
-vim.keymap.set("n", "<S-k>", "{")
+vim.keymap.set("n", "<S-j>", "<C-d>")
+vim.keymap.set("n", "<S-k>", "<C-u>")
+
 vim.keymap.set("v", "<S-j>", "}")
 vim.keymap.set("v", "<S-k>", "{")
 -- End 2 End
@@ -56,12 +57,15 @@ vim.keymap.set("n", "<C-Down>", ":resize -1<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>")
 
+-- for pasting
+vim.keymap.set("x", "<leader>p", "\"_dP")
+
 -- Move text up and down
 vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv")
 
 -- Lexplore right
-vim.keymap.set("n", "<leader>e", "<cmd>silent Sexplore<CR>")
+vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
 vim.cmd([[ autocmd BufLeave * if &filetype == 'netrw' | bd | endif ]])
 -- vim.cmd([[nnoremap <buffer> <CR> :Lexplore!<CR> ]])
 -- Find file
@@ -171,10 +175,50 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 		-- add your plugins here
+		{"Tetralux/odin.vim"},
 		{
 			"rebelot/kanagawa.nvim",
 			opts = {},
 			config = function()
+			end
+		},
+		{
+			'stevearc/oil.nvim',
+			---@module 'oil'
+			---@type oil.SetupOpts
+			-- Optional dependencies
+			dependencies = { { "echasnovski/mini.icons", opts = {} } },
+			-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+			opts = {
+				columns = {
+					"icon",
+					"permissions",
+					"size",
+					-- "mtime",
+				},
+			},
+			config = function ()
+				require("oil").setup({
+
+					keymaps = {
+						["g?"] = "actions.show_help",
+						["<CR>"] = "actions.select",
+						["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+						["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+						["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
+						["<C-p>"] = "actions.preview",
+						[" d"] = "actions.close",
+						["<C-l>"] = "actions.refresh",
+						["-"] = "actions.parent",
+						["_"] = "actions.open_cwd",
+						["`"] = "actions.cd",
+						["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
+						["gs"] = "actions.change_sort",
+						["gx"] = "actions.open_external",
+						["g."] = "actions.toggle_hidden",
+						["g\\"] = "actions.toggle_trash",
+					},
+				})
 			end
 		},
 		{
