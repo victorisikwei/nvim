@@ -67,10 +67,12 @@ vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv")
 
 -- Lexplore right
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
-vim.cmd([[ autocmd BufLeave * if &filetype == 'netrw' | bd | endif ]])
+-- vim.cmd([[ autocmd BufLeave * if &filetype == 'netrw' | bd | endif ]])
 -- vim.cmd([[nnoremap <buffer> <CR> :Lexplore!<CR> ]])
 -- Find file
-vim.keymap.set("n", "<leader>f", ":FZF ~/")
+vim.keymap.set("n", "<leader>f", ":FZF<CR>")
+vim.keymap.set("n", "<leader>m", ":lcd ~ | FZF<CR>")
+
 vim.keymap.set("n", "?", ":Rg<CR>")
 -- Buffers
 vim.keymap.set("n", "<leader><Tab>", ":Buffers<CR>")
@@ -205,7 +207,7 @@ require("lazy").setup({
 						["g?"] = "actions.show_help",
 						["<CR>"] = "actions.select",
 						["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
-						["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+						-- ["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
 						["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 						["<C-p>"] = "actions.preview",
 						[" d"] = "actions.close",
@@ -280,12 +282,12 @@ require("lazy").setup({
 vim.cmd("colorscheme kanagawa")
 vim.cmd([[
 	highlight Normal ctermbg=0 guibg=#000000
-	highlight SignColumn ctermbg=0 guibg=#000000
+	highlight SignColumn ctermbg=0 guibg=#0E0E0E
 ]])
 
 -- LSP
 
--- vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = 'yes'
 
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
 -- This should be executed before you configure any language server
