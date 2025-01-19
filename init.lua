@@ -1,6 +1,7 @@
 vim.opt.scrolloff = 13
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
+vim.opt.wildmenu = false
 vim.opt.tabstop = 4
 vim.opt.signcolumn = "yes"
 vim.opt.swapfile = false
@@ -77,7 +78,7 @@ colorscheme zio
 "autocmd VimEnter * colorscheme "./zio.vim"
 set fillchars+=vert:*
 set fillchars+=horiz:*
-highlight StatusLine ctermbg=0 guibg=#040623 guifg=#fbc3b7
+highlight StatusLine ctermbg=0 guibg=#040623 guifg=#5C5761
 highlight StatusLineNC ctermbg=0 guibg=NvimDarkGrey2 guifg=NvimDarkGrey2
 highlight VertSplit ctermbg=NONE guibg=NONE
 highlight WinSeparator ctermbg=NONE guifg=#55587A
