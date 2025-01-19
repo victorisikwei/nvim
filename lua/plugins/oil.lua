@@ -1,0 +1,35 @@
+
+return {
+    "stevearc/oil.nvim",
+    dependencies = {
+        "echasnovski/mini.icons",
+        opts = {},
+    },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    opts = {
+        columns = {
+            "icon",
+            "permissions",
+            "size",
+            -- "mtime",
+        },
+    },
+    config = function()
+        require("oil").setup({
+
+            keymaps = {
+                ["g?"] = "actions.show_help",
+                ["<CR>"] = "actions.select",
+                ["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+                ["<C-v>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split"},
+                [" d"] = "actions.close",
+                ["-"] = "actions.parent",
+                ["_"] = "actions.open_cwd",
+                ["`"] = "actions.cd",
+                ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
+                ["g."] = "actions.toggle_hidden",
+                ["g\\"] = "actions.toggle_trash",
+            },
+        })
+    end,
+}

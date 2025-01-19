@@ -17,15 +17,15 @@ hi GitGutterDelete guifg=#fbc3b7 guibg=NONE
 hi GitGutterChangeDelete guifg=#fbc3b7 guibg=NONE
 hi cssIdentifier guifg=#fbc3b7 guibg=NONE
 hi cssImportant guifg=#fbc3b7 guibg=NONE
-hi Type guifg=#fbc3b7 guibg=NONE
-hi Identifier guifg=#fbc3b7 guibg=NONE
+hi Type guifg=#e8d49d guibg=NONE
+hi Identifier guifg=#e8d49d guibg=NONE
 hi PMenuSel guifg=#fbc3b7 guibg=091158
 hi Constant guifg=#fbc3b7 guibg=NONE
 hi Repeat guifg=#fbc3b7 guibg=NONE
 hi DiffAdd guifg=#fbc3b7 guibg=NONE
 hi GitGutterAdd guifg=#fbc3b7 guibg=NONE
 hi cssIncludeKeyword guifg=#fbc3b7 guibg=NONE
-hi Keyword guifg=#fbc3b7 guibg=NONE
+hi Keyword guifg=#eedfb4 guibg=NONE
 hi IncSearch guifg=#fbc3b7 guibg=NONE
 hi Title guifg=#fbc3b7 guibg=NONE
 hi PreCondit guifg=#fbc3b7 guibg=NONE
@@ -47,7 +47,7 @@ hi Macro guifg=#fbc3b7 guibg=NONE
 hi DiffChange guifg=#fbc3b7 guibg=NONE
 hi GitGutterChange guifg=#fbc3b7 guibg=NONE
 hi cssColor guifg=#fbc3b7 guibg=NONE
-hi Function guifg=#fbc3b7 guibg=NONE
+hi Function guifg=#fe967f guibg=NONE
 hi Directory guifg=#fbc3b7 guibg=NONE
 hi markdownLinkText guifg=#fbc3b7 guibg=NONE
 hi javaScriptBoolean guifg=#fbc3b7 guibg=NONE
