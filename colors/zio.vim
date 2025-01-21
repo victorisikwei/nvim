@@ -3,7 +3,7 @@ syntax reset
 let g:colors_name = "zio"
 set background=dark
 set t_Co=256
-hi Normal guifg=#fbc3b7 ctermbg=NONE guibg=#020416 gui=NONE
+hi Normal guifg=#ffffff ctermbg=NONE guibg=#020416 gui=NONE
 
 
 hi DiffText guifg=#fbc3b7 guibg=NONE
@@ -19,7 +19,7 @@ hi cssIdentifier guifg=#fbc3b7 guibg=NONE
 hi cssImportant guifg=#fbc3b7 guibg=NONE
 hi Type guifg=#e8d49d guibg=NONE
 hi Identifier guifg=#e8d49d guibg=NONE
-hi PMenuSel guifg=#fbc3b7 guibg=091158
+hi PMenuSel guifg=#fbc3b7 guibg=#091158
 hi Constant guifg=#fbc3b7 guibg=NONE
 hi Repeat guifg=#fbc3b7 guibg=NONE
 hi DiffAdd guifg=#fbc3b7 guibg=NONE
@@ -60,7 +60,7 @@ hi Operator guifg=#fbc3b7 guibg=NONE
 hi cssAttr guifg=#fbc3b7 guibg=NONE
 
 
-hi Pmenu guifg=#fbc3b7 guibg=#454545
+hi Pmenu guifg=#5C5761 guibg=#020416
 hi SignColumn guibg=#020416
 hi Title guifg=#fbc3b7
 hi LineNr guifg=#da300c guibg=#020416

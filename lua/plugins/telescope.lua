@@ -104,6 +104,6 @@ return {
             :find()
         end
         -- pickers.new(require("telescope.themes").get_ivy(opts), {})
-        vim.keymap.set("n", "<leader>g", live_multigrep)
+        vim.keymap.set("n", "?", live_multigrep)
     end,
 }
