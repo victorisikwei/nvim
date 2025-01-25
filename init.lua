@@ -1,8 +1,8 @@
-vim.opt.scrolloff = 13
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.wildmenu = false
 vim.opt.tabstop = 4
+vim.opt.equalalways = false
 vim.opt.signcolumn = "yes"
 vim.opt.swapfile = false
 vim.opt.breakindent = true
@@ -17,9 +17,10 @@ vim.opt.smartindent = true
 vim.opt.updatetime = 80
 vim.opt.timeoutlen = 80
 vim.opt.autochdir = true
+vim.opt.virtualedit="all"
 vim.g.mapleader = " "
 vim.opt.clipboard = "unnamedplus"
-vim.opt.fillchars:append({ eob = " " }) -- remove ~ from nvim
+vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 -----Custom SatusLine
 function MyStatusLine()
     return "[Line:%l of %L][Col:%c]  %= [%F%m%r%h%w]  [Filetype:%Y] %= [pos:%p%%]"
@@ -30,7 +31,11 @@ if vim.g.neovide then
     vim.o.guifont = "FantasqueSansM Nerd Font:h6:b" -- text below applies for VimScript
 end
 ----------KEYMAPS---------
+vim.keymap.set("n", "j", "jzz")
+vim.keymap.set("n", "k", "kzz")
 vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("n", "D", "Vd")
 vim.keymap.set("i", "jk", "<Esc>") -- easy escape
 vim.keymap.set("n", "<leader>d", ":bd<CR>")
 vim.keymap.set("n", "<leader>1", "<cmd>silent only!<CR>") -- NOTE: check <cmd> vs ":"
@@ -48,7 +53,7 @@ vim.keymap.set("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_sc
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
 
 --- Compile
-vim.keymap.set('n', '<leader>c', ':10sv<CR>:enew<CR>:terminal ')
+vim.keymap.set('n', '<leader>c', ':15sv<CR>:enew<CR>:terminal ')
 -- End 2 End
 vim.keymap.set("n", "<S-e>", "$")
 vim.keymap.set("n", "<S-b>", "^")
@@ -57,8 +62,8 @@ vim.keymap.set("v", "<S-b>", "^")
 -- Resize with arrows
 vim.keymap.set("n", "<C-Up>", ":resize +1<CR>")
 vim.keymap.set("n", "<C-Down>", ":resize -1<CR>")
-vim.keymap.set("n", "<C-Left>", ":vertical resize -1<CR>")
-vim.keymap.set("n", "<C-Right>", ":vertical resize +1<CR>")
+vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>")
+vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>")
 -- Different keys for system registery yank and paste
 vim.keymap.set("n", "<leader>p", "+gP")
 vim.keymap.set("n", "<leader>y", "+y")
