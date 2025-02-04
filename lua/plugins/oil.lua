@@ -25,6 +25,7 @@ return {
                 [" d"] = "actions.close",
                 ["-"] = "actions.parent",
                 ["_"] = "actions.open_cwd",
+                ["<C-l>"] = "actions.refresh",
                 ["`"] = "actions.cd",
                 ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
                 ["g."] = "actions.toggle_hidden",

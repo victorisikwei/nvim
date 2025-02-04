@@ -67,7 +67,8 @@ hi LineNr guifg=#da300c guibg=#020416
 hi NonText guifg=#5c5761 guibg=#020416
 hi Comment guifg=#89858b gui=italic
 hi SpecialComment guifg=#091158 gui=italic guibg=NONE
-hi CursorLine guibg=#04082f
+" hi CursorLine guibg=#040b2f
+hi CursorLine guibg=#220033
 hi TabLineFill gui=NONE guibg=#454545
 hi TabLine guifg=#da300c guibg=#454545 gui=NONE
 hi StatusLine gui=bold guibg=#454545 guifg=#fbc3b7

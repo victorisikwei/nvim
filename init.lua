@@ -1,9 +1,9 @@
 vim.opt.expandtab = true
+vim.opt.cursorline = true
 vim.opt.shiftwidth = 4
 vim.opt.wildmenu = false
 vim.opt.tabstop = 4
 vim.opt.equalalways = false
-vim.opt.signcolumn = "yes"
 vim.opt.swapfile = false
 vim.opt.breakindent = true
 vim.opt.ignorecase = true
@@ -17,6 +17,8 @@ vim.opt.smartindent = true
 vim.opt.updatetime = 80
 vim.opt.timeoutlen = 80
 vim.opt.autochdir = true
+vim.opt.list = true
+vim.opt.listchars = { space = "·" }
 vim.opt.virtualedit="all"
 vim.g.mapleader = " "
 vim.opt.clipboard = "unnamedplus"
@@ -29,6 +31,10 @@ vim.opt.statusline = "%!v:lua.MyStatusLine()"
 -------NEOVIDE STUFFS--------
 if vim.g.neovide then
     vim.o.guifont = "FantasqueSansM Nerd Font:h6:b" -- text below applies for VimScript
+    -- vim.g.neovide_transparency = 0.8
+    -- vim.g.neovide_normal_opacity = 0.8
+    vim.g.neovide_hide_mouse_when_typing = true
+    vim.g.neovide_cursor_animation_length = 0
 end
 ----------KEYMAPS---------
 vim.keymap.set("n", "j", "jzz")
@@ -40,6 +46,10 @@ vim.keymap.set("i", "jk", "<Esc>") -- easy escape
 vim.keymap.set("n", "<leader>d", ":bd<CR>")
 vim.keymap.set("n", "<leader>1", "<cmd>silent only!<CR>") -- NOTE: check <cmd> vs ":"
 vim.keymap.set("n", "<C-f>", ":e ~/.config/nvim/init.lua<CR>")
+-- Tabs and switching tabs
+vim.keymap.set("n", "<C-n>", "<cmd>tabnew<CR>", {silent = true})
+vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", {silent = true})
+vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", {silent = true})
 -- Toggle Filemanager
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
 -- Easy window movement
@@ -51,9 +61,8 @@ vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-=>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
 vim.keymap.set("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", { silent = true })
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
-
 --- Compile
-vim.keymap.set('n', '<leader>c', ':15sv<CR>:enew<CR>:terminal ')
+vim.keymap.set('n', '<leader>c', ':10sv<CR>:enew<CR>:terminal ')
 -- End 2 End
 vim.keymap.set("n", "<S-e>", "$")
 vim.keymap.set("n", "<S-b>", "^")
@@ -70,26 +79,33 @@ vim.keymap.set("n", "<leader>y", "+y")
 vim.keymap.set("n", "Y", "Vy")
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 ---- Colors and som Vim script stuffs ------
 vim.cmd([[
-colorscheme zio
-"autocmd VimEnter * colorscheme "./zio.vim"
-set fillchars+=vert:.
-set fillchars+=horiz:.
-highlight StatusLine ctermbg=0 guibg=#040623 guifg=#5C5761
-highlight StatusLineNC ctermbg=0 guibg=NvimDarkGrey2 guifg=NvimDarkGrey2
+colorscheme iceberg
 highlight VertSplit ctermbg=NONE guibg=NONE
-highlight WinSeparator ctermbg=NONE guifg=#55587A
-highlight wildMenu ctermbg=0 ctermfg=0 guibg=NvimDarkGrey2 guifg=NvimDarkGrey2
+highlight WinSeparator guibg=NONE" ctermbg=NONE guifg=#55587A
 set laststatus=3
 ]])
-
+-- Show cursorline only in the active window
+vim.api.nvim_create_autocmd("WinEnter", {
+    pattern = "*",
+    callback = function()
+        vim.wo.cursorline = true
+    end,
+})
+-- Turn-off cursorline on window leave
+vim.api.nvim_create_autocmd("WinLeave", {
+    pattern = "*",
+    callback = function()
+        vim.wo.cursorline = false
+    end,
+})
 ------STARTUP LAZY PLUGIN MANAGER-------------
 require("config.lazy")
 
