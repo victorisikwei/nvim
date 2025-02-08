@@ -1,5 +1,5 @@
 return {
-    "hrsh7th/nvim-cmp",
+    'hrsh7th/nvim-cmp',
     dependencies = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -7,9 +7,10 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
     },
-    opts = {
-    },
+    event = 'InsertEnter',
+    opts = {},
     config = function()
+        local cmp = require('cmp')
 
         local toggle_view = function()
             local current = cmp.get_config().view.entries.name
@@ -20,10 +21,7 @@ return {
             end
         end
 
-        -- Set up nvim-cmp.
-        local cmp = require'cmp'
         cmp.setup({
-            -- autocomplete = false,
             experimental = { ghost_text = true },
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
@@ -31,10 +29,16 @@ return {
                     require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
                 end,
             },
-            view = { entries = { name = 'wildmenu', separator = '|' } },
+            view = { entries = { name = 'wildmenu', separator = ' | ' } },
             window = {
                 completion = cmp.config.window.bordered(),
                 documentation = cmp.config.window.bordered(),
+            },
+            sources = {
+                { name = 'luasnip' }, -- For luasnip users.
+                { name = 'buffer' },
+                { name = 'path' },
+                { name = 'nvim_lsp' },
             },
             mapping = cmp.mapping.preset.insert({
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -45,11 +49,11 @@ return {
                 ['<C-e>'] = cmp.mapping.abort(),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
             }),
-            sources = cmp.config.sources({
-                { name = 'luasnip' }, -- For luasnip users.
-                { name = 'buffer' },
-                { name = 'path' },
-            })
-        }) -- Setup ends here.
+            snippet = {
+                expand = function(args)
+                    vim.snippet.expand(args.body)
+                end,
+            },
+        })
     end
 }

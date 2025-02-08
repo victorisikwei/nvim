@@ -18,6 +18,7 @@ return {
 
             keymaps = {
                 ["g?"] = "actions.show_help",
+                ["t"] = "actions.select_tab",
                 ["<CR>"] = "actions.select",
                 ["<C-2>"] = "actions.refresh",
                 ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },

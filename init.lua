@@ -36,14 +36,16 @@ if vim.g.neovide then
     vim.g.neovide_hide_mouse_when_typing = true
     vim.g.neovide_cursor_animation_length = 0
 end
-----------KEYMAPS---------
+---------KEYMAPS---------
+vim.cmd([[:inoremap <C-v> ^R+]])
 vim.keymap.set("n", "j", "jzz")
 vim.keymap.set("n", "k", "kzz")
+vim.keymap.set("n", "<C-q>", "<cmd>%bd|e#<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "D", "Vd")
 vim.keymap.set("i", "jk", "<Esc>") -- easy escape
-vim.keymap.set("n", "<leader>d", ":bd<CR>")
+vim.keymap.set("n", "<leader>d", ":bd!<CR>")
 vim.keymap.set("n", "<leader>1", "<cmd>silent only!<CR>") -- NOTE: check <cmd> vs ":"
 vim.keymap.set("n", "<C-f>", ":e ~/.config/nvim/init.lua<CR>")
 -- Tabs and switching tabs
@@ -57,24 +59,23 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("i", "<C-S-V>", "<C-R>+")
 -- Scaling
 vim.keymap.set("n", "<C-=>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
 vim.keymap.set("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", { silent = true })
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
 --- Compile
 vim.keymap.set('n', '<leader>c', ':10sv<CR>:enew<CR>:terminal ')
--- End 2 End
-vim.keymap.set("n", "<S-e>", "$")
-vim.keymap.set("n", "<S-b>", "^")
-vim.keymap.set("v", "<S-e>", "$")
-vim.keymap.set("v", "<S-b>", "^")
+-- terminal
+vim.keymap.set('n', '<C-t>t', '<cmd>tabnew<CR>')
 -- Resize with arrows
 vim.keymap.set("n", "<C-Up>", ":resize +1<CR>")
 vim.keymap.set("n", "<C-Down>", ":resize -1<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>")
 -- Different keys for system registery yank and paste
-vim.keymap.set("n", "<leader>p", "+gP")
+-- vim.keymap.set("n", "<leader>p", "+gP")
+vim.keymap.set("n", "<leader>p", "+p")
 vim.keymap.set("n", "<leader>y", "+y")
 vim.keymap.set("n", "Y", "Vy")
 -- Highlight when yanking (copying) text
@@ -87,14 +88,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 ---- Colors and som Vim script stuffs ------
 vim.cmd([[
-colorscheme iceberg
+" colorscheme iceberg
 highlight VertSplit ctermbg=NONE guibg=NONE
 highlight WinSeparator guibg=NONE" ctermbg=NONE guifg=#55587A
 set laststatus=3
 ]])
--- Show cursorline only in the active window
-vim.api.nvim_create_autocmd("WinEnter", {
-    pattern = "*",
+--{-------------------------------------------------------------
+-- Show cursorline only in the active window                    
+vim.api.nvim_create_autocmd("WinEnter", {                       
+    pattern = "*",                                              
     callback = function()
         vim.wo.cursorline = true
     end,
@@ -105,6 +107,28 @@ vim.api.nvim_create_autocmd("WinLeave", {
     callback = function()
         vim.wo.cursorline = false
     end,
+})
+--{--------------------------------------------------------------|---}
+-- Scratch buffer
+-- vim.api.nvim_create_autocmd("BufNewFile", {
+--     callback = function()
+--         if vim.api.nvim_buf_get_name(0) == "" then
+--             vim.bo.buftype = "nofile"  -- Make it a scratch buffer
+--             vim.bo.bufhidden = "hide"  -- Hide when abandoned
+--             vim.bo.swapfile = false    -- No swap file
+--         end
+--     end
+-- })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        local bufname = vim.api.nvim_buf_get_name(0)
+        if bufname == "" then
+            vim.bo.buftype = "nofile"  -- Make it a scratch buffer
+            vim.bo.bufhidden = "hide"  -- Hide when abandoned
+            vim.bo.swapfile = false    -- No swap file
+        end
+    end
 })
 ------STARTUP LAZY PLUGIN MANAGER-------------
 require("config.lazy")
