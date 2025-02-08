@@ -1,1 +1,1 @@
-This is my personal nvim config [[ Whit my favoureite plugins ]]
+This is my personal nvim config [[ With my favoureite plugins ]]
