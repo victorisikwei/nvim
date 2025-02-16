@@ -35,10 +35,15 @@ vim.opt.statusline = "%!v:lua.MyStatusLine()"
 if vim.g.neovide then
     -- vim.o.guifont = "FantasqueSansM Nerd Font:h5:b" -- text below applies for VimScript
     vim.o.guifont = "FantasqueSansM Nerd Font:h5.4" -- text below applies for VimScript
-    -- vim.g.neovide_transparency = 0.8
-    -- vim.g.neovide_normal_opacity = 0.8
-    vim.g.neovide_hide_mouse_when_typing = true
-    vim.g.neovide_cursor_animation_length = 0.05
+    -- vim.g.neovide_hide_mouse_when_typing = true
+    -- vim.g.neovide_cursor_animation_length = 0.13
+    vim.g.neovide_cursor_trail_size = 0.8
+    -- vim.g.neovide_cursor_animation_length = 0.05
+    -- vim.g.neovide_cursor_vfx_mode = "torpedo"
+    vim.g.neovide_cursor_smooth_blink = true
+    vim.g.neovide_cursor_vfx_mode = "sonicboom"
+    vim.g.neovide_cursor_vfx_mode = "railgun"
+    vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
 ---------KEYMAPS---------
 vim.keymap.set("n", "j", "jzz")
