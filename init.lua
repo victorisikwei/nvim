@@ -9,6 +9,8 @@ vim.opt.breakindent = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
+vim.opt.number = true
+-- vim.opt.relativenumber = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.whichwrap = "bs<>[]hl"
@@ -25,10 +27,11 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 --[--------------------------------]
 -----Custom SatusLine
-function MyStatusLine()
-    return "[Line:%l of %L][Col:%c]  %= [%F%m%r%h%w]  [Filetype:%Y] %= [pos:%p%%]"
-end
-vim.opt.statusline = "%!v:lua.MyStatusLine()"
+-- function MyStatusLine()
+--     -- return "[Line:%l of %L][Col:%c]  %= [%F%m%r%h%w]  [Filetype:%Y] %= [pos:%p%%]"
+--     return "               %=[pos:%p%%] %=[%F%m%r%h%w] [Filetype:%Y]"
+-- end
+-- vim.opt.statusline = "%!v:lua.MyStatusLine()"
 --[-----------------------------------------------]
 
 -------NEOVIDE STUFFS--------
@@ -51,6 +54,7 @@ vim.keymap.set("n", "k", "kzz")
 vim.keymap.set("n", "<C-q>", "<cmd>%bd|e#<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("n", ";", ":")
 -- vim.keymap.set("n", "D", "Vd")
 vim.keymap.set("i", "jk", "<Esc>") -- easy escape
 vim.keymap.set("i", "jj", "<Esc>") -- easy escape

@@ -39,6 +39,7 @@ return {
                 { name = 'buffer' },
                 { name = 'path' },
                 { name = 'nvim_lsp' },
+                { name = 'render-markdown' },
             },
             mapping = cmp.mapping.preset.insert({
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),

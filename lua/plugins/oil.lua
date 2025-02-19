@@ -15,7 +15,6 @@ return {
     },
     config = function()
         require("oil").setup({
-
             keymaps = {
                 ["g?"] = "actions.show_help",
                 ["t"] = "actions.select_tab",
