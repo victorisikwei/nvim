@@ -1,21 +1,22 @@
 return {
-    "catppuccin/nvim", 
-    name = "catppuccin", 
+    "thesimonho/kanagawa-paper.nvim",
+    lazy = false,
     priority = 1000,
     opts = {
     },
-    config = function()
-        require("catppuccin").setup({
-            vim.cmd.colorscheme "catppuccin-mocha"
+    config = function ()
+        require('kanagawa-paper').setup({
+        -- local colors = require("kanagawa-paper.colors").setup()
+            overrides = function(colors)
+                return {
+                    Normal = { bg = "#16161D"},
+                    NormalNC = { bg = "#16161D"},
+                    NormalFloat = { bg = "#16161D" },
+                    FloatBorder = { bg = "#16161D" },
+                    FloatTitle = { bg = "#16161D" },
+                }
+            end,
         })
-        vim.cmd([[
-        " highlight Normal ctermbg=NONE guibg=NONE
-        " highlight Normal ctermbg=0 guibg=#000000
-        " highlight SignColumn ctermbg=0 guibg=#000000
-        " highlight LineNr ctermbg=0 guibg=#000000
-        " highlight NormalFloat ctermbg=0 guibg=#000000
-        " highlight FloatBorder ctermbg=0 guibg=#000000
-        " highlight FloatFooter ctermbg=0 guibg=#000000
-        ]])
+        vim.cmd("colorscheme kanagawa-paper")
     end
 }

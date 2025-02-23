@@ -1,8 +1,9 @@
 vim.opt.expandtab = true
-vim.opt.cursorline = true
+-- vim.opt.cursorline = true
 vim.opt.shiftwidth = 4
 vim.opt.wildmenu = false
 vim.opt.tabstop = 4
+-- vim.opt.scrolloff = 8
 vim.opt.equalalways = false
 vim.opt.swapfile = false
 vim.opt.breakindent = true
@@ -10,7 +11,9 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.number = true
+vim.opt.winblend = 30
 -- vim.opt.relativenumber = true
+vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.whichwrap = "bs<>[]hl"
@@ -110,17 +113,17 @@ set laststatus=3
 ]])
 --{-------------------------------------------------------------
 -- Show cursorline only in the active window                    
-vim.api.nvim_create_autocmd("WinEnter", {                       
-    pattern = "*",                                              
+vim.api.nvim_create_autocmd("WinEnter", {
+    pattern = "*",
     callback = function()
-        vim.wo.cursorline = true
+        -- vim.wo.cursorline = true
     end,
 })
 -- Turn-off cursorline on window leave
 vim.api.nvim_create_autocmd("WinLeave", {
     pattern = "*",
     callback = function()
-        vim.wo.cursorline = false
+        -- vim.wo.cursorline = false
     end,
 })
 --{--------------------------------------------------------------|---}
@@ -135,6 +138,31 @@ vim.api.nvim_create_autocmd("VimEnter", {
         end
     end
 })
+
+-- Terminal mode
+vim.api.nvim_create_autocmd('TermOpen', {
+    group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
+    callback = function()
+        vim.opt.number = false
+        vim.opt.relativenumber = false
+    end
+})
+
+-- NOTE:  Deal with this later
+-- ------------------
+-- vim.keymap.set("n", "<leader>2", function()
+--     vim.cmd.vnew()
+--     vim.cmd.term()
+--     vim.cmd.wincmd("J")
+--     vim.api.nvim_win_set_height(0, 15)
+--     Job_id = vim.bo.channel
+-- end)
+--
+-- vim.keymap.set("n", "<space>3", function()
+--     vim.fn.chansend(Job_id, { "ls -al\r\n" })
+-- end)
+-- ]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
 ------STARTUP LAZY PLUGIN MANAGER-------------
 require("config.lazy")
 
