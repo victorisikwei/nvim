@@ -110,8 +110,8 @@ vim.keymap.set("v", "<leader>p", "\"+p")
 vim.keymap.set("n", "<leader>y", "\"+y")
 vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("v", "<leader>y", "\"+y")
+-- vim.keymap.set("n", "<leader>d", "\"_d")-----deleting into the void register N:mode
 vim.keymap.set("v", "<leader>d", "\"_d") --- deleting into the void register V:mode
-vim.keymap.set("n", "<leader>d", "\"_d")-----deleting into the void register N:mode
 vim.keymap.set("n", "Y", "Vy")
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
