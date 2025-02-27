@@ -51,6 +51,13 @@ return {
                 end,
             })
 
+
+            -- Vlang
+            require'lspconfig'.v_analyzer.setup{
+                cmd = { "v-analyzer" },
+                filetypes = { "v", "vsh", "vv" }
+            }
+
             require('mason-lspconfig').setup({
                 ensure_installed = {},
                 handlers = {

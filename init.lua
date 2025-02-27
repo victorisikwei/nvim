@@ -1,4 +1,5 @@
 vim.opt.expandtab = true
+vim.opt.guicursor = "n-v-c:block,i:block"
 -- vim.opt.cursorline = true
 vim.opt.shiftwidth = 4
 vim.opt.wildmenu = false
@@ -23,10 +24,10 @@ vim.opt.updatetime = 80
 vim.opt.timeoutlen = 80
 vim.opt.autochdir = true  -- change the current working directory whenever you open a file
 vim.opt.list = true
--- vim.opt.listchars = { space = "·" }
--- vim.opt.virtualedit="all"
+vim.opt.listchars = { space = "·" }
+vim.opt.virtualedit="all"
 vim.g.mapleader = " "
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 --[--------------------------------]
 -----Custom SatusLine
@@ -39,8 +40,8 @@ vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 
 -------NEOVIDE STUFFS--------
 if vim.g.neovide then
-    -- vim.o.guifont = "FantasqueSansM Nerd Font:h5:b" -- text below applies for VimScript
-    vim.o.guifont = "FantasqueSansM Nerd Font:h5.4" -- text below applies for VimScript
+    vim.o.guifont = "FantasqueSansM Nerd Font:h5.9:b" -- text below applies for VimScript
+    -- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4" -- text below applies for VimScript
     -- vim.g.neovide_hide_mouse_when_typing = true
     -- vim.g.neovide_cursor_animation_length = 0.13
     vim.g.neovide_cursor_trail_size = 0.8
@@ -52,6 +53,15 @@ if vim.g.neovide then
     vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
 ---------KEYMAPS---------
+--- move stuff
+vim.keymap.set("n", "Q", "<nop>") --- TODO: Check what this do latter
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set('i', '<BS>', '<NOP>', {noremap = true})
 vim.keymap.set("n", "j", "jzz")
 vim.keymap.set("n", "k", "kzz")
 vim.keymap.set("n", "<C-q>", "<cmd>%bd|e#<CR>")
@@ -72,6 +82,8 @@ vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", {silent = true})
 vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", {silent = true})
 -- Toggle Filemanager
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
+vim.keymap.set("n", "<leader>4", "$")
+vim.keymap.set("n", "<leader>6", "^")
 -- Easy window movement
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -83,7 +95,7 @@ vim.keymap.set("n", "<C-=>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_sc
 vim.keymap.set("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", { silent = true })
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
 --- Compile
-vim.keymap.set('n', '<leader>t', ':10sv<CR>:enew<CR>:terminal ')
+vim.keymap.set('n', '<leader>t', ':19sv<CR>:enew<CR>:terminal ')
 -- terminal
 vim.keymap.set('n', '<C-t>t', '<cmd>tabnew<CR>')
 -- Resize with arrows
@@ -92,9 +104,14 @@ vim.keymap.set("n", "<C-Down>", ":resize -1<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>")
 -- Different keys for system registery yank and paste
--- vim.keymap.set("n", "<leader>p", "+gP")
-vim.keymap.set("n", "<leader>p", "+p")
-vim.keymap.set("n", "<leader>y", "+y")
+vim.keymap.set("x", "<leader>p", "\"_dP")
+vim.keymap.set("n", "<leader>p", "\"+p")
+vim.keymap.set("v", "<leader>p", "\"+p")
+vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>Y", "\"+Y")
+vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>d", "\"_d") --- deleting into the void register V:mode
+vim.keymap.set("n", "<leader>d", "\"_d")-----deleting into the void register N:mode
 vim.keymap.set("n", "Y", "Vy")
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -104,6 +121,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end,
 })
+
 ---- Colors and som Vim script stuffs ------
 vim.cmd([[
 " colorscheme iceberg
@@ -165,4 +183,3 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
 ------STARTUP LAZY PLUGIN MANAGER-------------
 require("config.lazy")
-
