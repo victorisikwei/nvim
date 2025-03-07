@@ -12,7 +12,7 @@ vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.number = true
 vim.opt.winblend = 30
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -40,11 +40,11 @@ vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 
 -------NEOVIDE STUFFS--------
 if vim.g.neovide then
-	vim.o.guifont = "FantasqueSansM Nerd Font:h5.9:b" -- text below applies for VimScript
-	-- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4" -- text below applies for VimScript
+	vim.o.guifont = "Sligoil Micro:h8" -- text below applies for VimScript
+	-- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4b" -- text below applies for VimScript
 	-- vim.g.neovide_hide_mouse_when_typing = true
 	-- vim.g.neovide_cursor_animation_length = 0.13
-	vim.g.neovide_cursor_trail_size = 0.8
+	vim.g.neovide_cursor_trail_size = 0.3
 	-- vim.g.neovide_cursor_animation_length = 0.05
 	-- vim.g.neovide_cursor_vfx_mode = "torpedo"
 	vim.g.neovide_cursor_smooth_blink = true
@@ -61,10 +61,14 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+vim.keymap.set("c", "<C-v>", "<C-r>+") -- command mode paste
+
 vim.keymap.set("v", "<", "<gv^")
 vim.keymap.set("v", ">", ">gv^")
 
-vim.keymap.set("i", "<BS>", "<NOP>", { noremap = true })
+-- vim.keymap.set("i", "<BS>", "<NOP>", { noremap = true })
+-- vim.keymap.set("n", "a", "<NOP>", { noremap = true })
+
 vim.keymap.set("n", "j", "jzz")
 vim.keymap.set("n", "k", "kzz")
 vim.keymap.set("n", "<C-q>", "<cmd>%bd|e#<CR>")
@@ -72,7 +76,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", ";", ":")
 -- vim.keymap.set("n", "D", "Vd")
-vim.keymap.set("i", "jk", "<Esc>") -- easy escape
+-- vim.keymap.set("i", "jk", "<Esc>") -- easy escape
 vim.keymap.set("i", "jj", "<Esc>") -- easy escape
 vim.keymap.set("i", "kk", "<Esc>") -- easy escape
 vim.keymap.set("i", "kj", "<Esc>") -- easy escape
@@ -85,8 +89,8 @@ vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", { silent = true })
 vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", { silent = true })
 -- Toggle Filemanager
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
-vim.keymap.set("n", "<leader>4", "$")
-vim.keymap.set("n", "<leader>6", "^")
+vim.keymap.set("n", "<leader>l", "$")
+vim.keymap.set("n", "<leader>h", "^")
 -- Easy window movement
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -107,10 +111,11 @@ vim.keymap.set(
 	{ silent = true }
 )
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
---- Compile
-vim.keymap.set("n", "<leader>t", ":15sv<CR>:enew<CR>:terminal ")
--- terminal
-vim.keymap.set("n", "<C-t>t", "<cmd>tabnew<CR>")
+--- Terminal
+vim.keymap.set("n", "<leader>t", ":15sv<CR>:enew<CR>:terminal<CR>")
+-- Exit terminal mode
+vim.keymap.set("t", "<C-k><C-k>", "<C-\\><C-n>:bd!<CR>")
+-- vim.keymap.set("n", "<C-t>t", "<cmd>tabnew<CR>")
 -- Resize with arrows
 vim.keymap.set("n", "<C-Up>", ":resize +1<CR>")
 vim.keymap.set("n", "<C-Down>", ":resize -1<CR>")
@@ -123,7 +128,7 @@ vim.keymap.set("v", "<leader>p", '"+p')
 vim.keymap.set("n", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>Y", '"+Y')
 vim.keymap.set("v", "<leader>y", '"+y')
-vim.keymap.set("n", "<leader>d", '"_d') -----deleting into the void register N:mode
+-- vim.keymap.set("n", "<leader>d", '"_d') -----deleting into the void register N:mode
 vim.keymap.set("v", "<leader>d", '"_d') --- deleting into the void register V:mode
 vim.keymap.set("n", "Y", "Vy")
 -- Highlight when yanking (copying) text
@@ -196,3 +201,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 ------STARTUP LAZY PLUGIN MANAGER-------------
 require("config.lazy")
+
+-- Notes ------------------------------------------------]]
+-- Use Ctrl+R followed by " to paste from the unnamed register.
+-- --------------------------------------------------------]]
