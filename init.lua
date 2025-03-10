@@ -10,6 +10,7 @@ vim.opt.breakindent = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
+vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.winblend = 30
 vim.opt.relativenumber = true
@@ -17,7 +18,7 @@ vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.whichwrap = "bs<>[]hl"
-vim.opt.linespace = 10
+vim.opt.linespace = 4
 vim.opt.smartindent = true
 vim.opt.updatetime = 80
 vim.opt.timeoutlen = 80
@@ -40,7 +41,7 @@ vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 
 -------NEOVIDE STUFFS--------
 if vim.g.neovide then
-	vim.o.guifont = "Sligoil Micro:h8" -- text below applies for VimScript
+	vim.o.guifont = "Sligoil Micro:h6.5" -- text below applies for VimScript
 	-- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4b" -- text below applies for VimScript
 	-- vim.g.neovide_hide_mouse_when_typing = true
 	-- vim.g.neovide_cursor_animation_length = 0.13
@@ -89,8 +90,8 @@ vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", { silent = true })
 vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", { silent = true })
 -- Toggle Filemanager
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
-vim.keymap.set("n", "<leader>l", "$")
-vim.keymap.set("n", "<leader>h", "^")
+vim.keymap.set("n", "<C-,>", "^")
+vim.keymap.set("n", "<C-.>", "$")
 -- Easy window movement
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -142,7 +143,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 ---- Colors and som Vim script stuffs ------
 vim.cmd([[
-	" colorscheme iceberg
+ 	autocmd TermOpen * startinsert
 	highlight VertSplit ctermbg=NONE guibg=NONE
 	highlight WinSeparator guibg=NONE" ctermbg=NONE guifg=#55587A
 	set laststatus=3

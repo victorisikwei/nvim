@@ -1,18 +1,20 @@
 return {
-  "folke/persistence.nvim",
-  event = "BufReadPre",
-  opts = {
-      need = 1,
-      -- load the session for the current directory
-      -- vim.keymap.set("n", "<leader>qs", function() require("persistence").load() end)
+	"folke/persistence.nvim",
+	event = "BufReadPre",
+	opts = {
+		need = 1,
+		-- load the session for the current directory
+		-- vim.keymap.set("n", "<leader>qs", function() require("persistence").load() end)
 
-      -- select a session to load
-      -- vim.keymap.set("n", "<leader>qS", function() require("persistence").select() end)
+		-- select a session to load
+		-- vim.keymap.set("n", "<leader>qS", function() require("persistence").select() end)
 
-      -- load the last session
-      vim.keymap.set("n", "<C-s>", function() require("persistence").load({ last = true }) end)
+		-- load the last session
+		vim.keymap.set("n", "<C-8>", function()
+			require("persistence").load({ last = true })
+		end),
 
-      -- stop Persistence => session won't be saved on exit
-      -- vim.keymap.set("n", "<leader>qd", function() require("persistence").stop() end)
-  }
+		-- stop Persistence => session won't be saved on exit
+		-- vim.keymap.set("n", "<leader>qd", function() require("persistence").stop() end)
+	},
 }
