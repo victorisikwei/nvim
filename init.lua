@@ -41,7 +41,7 @@ vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 
 -------NEOVIDE STUFFS--------
 if vim.g.neovide then
-	vim.o.guifont = "Sligoil Micro:h6.5" -- text below applies for VimScript
+	vim.o.guifont = "Sligoil Micro:h5.6" -- text below applies for VimScript
 	-- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4b" -- text below applies for VimScript
 	-- vim.g.neovide_hide_mouse_when_typing = true
 	-- vim.g.neovide_cursor_animation_length = 0.13
@@ -90,8 +90,12 @@ vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", { silent = true })
 vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", { silent = true })
 -- Toggle Filemanager
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
+
 vim.keymap.set("n", "<C-,>", "^")
 vim.keymap.set("n", "<C-.>", "$")
+vim.keymap.set("v", "<C-,>", "^")
+vim.keymap.set("v", "<C-.>", "$")
+
 -- Easy window movement
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<C-h>", "<C-w>h")
