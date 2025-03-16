@@ -1,5 +1,5 @@
 vim.opt.expandtab = false
-vim.opt.guicursor = "n-v-c:block,i:block"
+-- vim.opt.guicursor = "n-v-c:block,i:block"
 vim.opt.shiftwidth = 0
 vim.opt.wildmenu = false
 vim.opt.tabstop = 4
@@ -41,7 +41,7 @@ vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 
 -------NEOVIDE STUFFS--------
 if vim.g.neovide then
-	vim.o.guifont = "Sligoil Micro:h5.6" -- text below applies for VimScript
+	vim.o.guifont = "Sligoil Micro:h6" -- text below applies for VimScript
 	-- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4b" -- text below applies for VimScript
 	-- vim.g.neovide_hide_mouse_when_typing = true
 	-- vim.g.neovide_cursor_animation_length = 0.13
@@ -54,6 +54,7 @@ if vim.g.neovide then
 	vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
 ---------KEYMAPS---------
+
 --- move stuff
 vim.keymap.set("n", "Q", "<nop>") --- TODO: Check what this do latter
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -117,7 +118,7 @@ vim.keymap.set(
 )
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
 --- Terminal
-vim.keymap.set("n", "<leader>t", ":15sv<CR>:enew<CR>:terminal<CR>")
+vim.keymap.set("n", "<leader>t", ":20sv<CR>:enew<CR>:terminal<CR>")
 -- Exit terminal mode
 vim.keymap.set("t", "<C-k><C-k>", "<C-\\><C-n>:bd!<CR>")
 -- vim.keymap.set("n", "<C-t>t", "<cmd>tabnew<CR>")
@@ -147,11 +148,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 ---- Colors and som Vim script stuffs ------
 vim.cmd([[
+	colorscheme retrobox
  	autocmd TermOpen * startinsert
 	highlight VertSplit ctermbg=NONE guibg=NONE
 	highlight WinSeparator guibg=NONE" ctermbg=NONE guifg=#55587A
 	set laststatus=3
 	]])
+
 --{-------------------------------------------------------------
 -- Show cursorline only in the active window
 vim.api.nvim_create_autocmd("WinEnter", {
@@ -168,6 +171,7 @@ vim.api.nvim_create_autocmd("WinLeave", {
 	end,
 })
 --{--------------------------------------------------------------|---}
+
 -- Scratch buffer
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
@@ -206,7 +210,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 ------STARTUP LAZY PLUGIN MANAGER-------------
 require("config.lazy")
-
 -- Notes ------------------------------------------------]]
 -- Use Ctrl+R followed by " to paste from the unnamed register.
 -- --------------------------------------------------------]]
