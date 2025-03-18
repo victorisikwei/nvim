@@ -12,7 +12,7 @@ vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.cursorline = true
 vim.opt.number = true
-vim.opt.winblend = 30
+-- vim.opt.winblend = 30 -- For transparent floating windows
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.splitright = true
@@ -103,6 +103,7 @@ vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("i", "<C-S-V>", "<C-R>+")
+
 -- Scaling
 vim.keymap.set(
 	"n",
@@ -116,9 +117,13 @@ vim.keymap.set(
 	":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>",
 	{ silent = true }
 )
+
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
+
 --- Terminal
 vim.keymap.set("n", "<leader>t", ":20sv<CR>:enew<CR>:terminal<CR>")
+--- Quick build or runnning of a program
+vim.keymap.set("n", "<leader>r", ":25sv<CR>:enew<CR>:terminal ")
 -- Exit terminal mode
 vim.keymap.set("t", "<C-k><C-k>", "<C-\\><C-n>:bd!<CR>")
 -- vim.keymap.set("n", "<C-t>t", "<cmd>tabnew<CR>")
