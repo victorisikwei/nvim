@@ -8,12 +8,13 @@ vim.opt.equalalways = false
 vim.opt.swapfile = false
 vim.opt.breakindent = true
 vim.opt.ignorecase = true
+vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.cursorline = true
 vim.opt.number = true
--- vim.opt.winblend = 30 -- For transparent floating windows
 vim.opt.relativenumber = true
+-- vim.opt.winblend = 30 -- For transparent floating windows
 vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -41,7 +42,7 @@ vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 
 -------NEOVIDE STUFFS--------
 if vim.g.neovide then
-	vim.o.guifont = "Sligoil Micro:h6" -- text below applies for VimScript
+	vim.o.guifont = "IBM Plex Mono:h4.8" -- text below applies for VimScript
 	-- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4b" -- text below applies for VimScript
 	-- vim.g.neovide_hide_mouse_when_typing = true
 	-- vim.g.neovide_cursor_animation_length = 0.13
@@ -57,6 +58,7 @@ end
 
 --- move stuff
 vim.keymap.set("n", "Q", "<nop>") --- TODO: Check what this do latter
+vim.keymap.set("n", ",", "<nop>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
@@ -77,11 +79,7 @@ vim.keymap.set("n", "<C-q>", "<cmd>%bd|e#<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", ";", ":")
--- vim.keymap.set("n", "D", "Vd")
--- vim.keymap.set("i", "jk", "<Esc>") -- easy escape
-vim.keymap.set("i", "jj", "<Esc>") -- easy escape
-vim.keymap.set("i", "kk", "<Esc>") -- easy escape
-vim.keymap.set("i", "kj", "<Esc>") -- easy escape
+vim.keymap.set("i", "<Alt-,>", "<Esc>") -- easy escape
 vim.keymap.set("n", "<leader>q", ":bd!<CR>")
 vim.keymap.set("n", "<leader>1", "<cmd>silent only!<CR>") -- NOTE: check <cmd> vs ":"
 -- vim.keymap.set("n", "<C-f>", ":e ~/.config/nvim/init.lua<CR>")
@@ -121,9 +119,9 @@ vim.keymap.set(
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
 
 --- Terminal
-vim.keymap.set("n", "<leader>t", ":20sv<CR>:enew<CR>:terminal<CR>")
+vim.keymap.set("n", "<leader>t", ":5sv<CR>:enew<CR>:terminal<CR>")
 --- Quick build or runnning of a program
-vim.keymap.set("n", "<leader>r", ":25sv<CR>:enew<CR>:terminal ")
+vim.keymap.set("n", "<leader>r", ":10sv<CR>:enew<CR>:terminal ")
 -- Exit terminal mode
 vim.keymap.set("t", "<C-k><C-k>", "<C-\\><C-n>:bd!<CR>")
 -- vim.keymap.set("n", "<C-t>t", "<cmd>tabnew<CR>")
