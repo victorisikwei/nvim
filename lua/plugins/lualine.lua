@@ -1,7 +1,9 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	opts = {},
+	opts = {
+		-- fontsize = 6,
+	},
 	config = function()
 		-- Eviline config for lualine
 		-- Author: shadmansaleh
@@ -11,7 +13,6 @@ return {
         -- Color table for highlights
         -- stylua: ignore
         local colors = {
-            -- bg       = '#202328',
             bg       = '#0000112',
             fg       = '#bbc2cf',
             yellow   = '#ECBE7B',
