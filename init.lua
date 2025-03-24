@@ -18,9 +18,12 @@ vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+-- Save undo history
+vim.opt.undofile = true
 vim.opt.whichwrap = "bs<>[]hl"
 vim.opt.linespace = 4
 vim.opt.smartindent = true
+vim.opt.confirm = true
 vim.opt.updatetime = 80
 vim.opt.timeoutlen = 80
 vim.opt.autochdir = true -- change the current working directory whenever you open a file
@@ -79,7 +82,8 @@ vim.keymap.set("n", "<C-q>", "<cmd>%bd|e#<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", ";", ":")
-vim.keymap.set("i", "<Alt-,>", "<Esc>") -- easy escape
+-- vim.keymap.set("i", "<C-i>", "<Alt-i>") -- easy escape
+vim.keymap.set("i", "jk", "<Esc>") -- easy escape
 vim.keymap.set("n", "<leader>q", ":bd!<CR>")
 vim.keymap.set("n", "<leader>1", "<cmd>silent only!<CR>") -- NOTE: check <cmd> vs ":"
 -- vim.keymap.set("n", "<C-f>", ":e ~/.config/nvim/init.lua<CR>")
@@ -89,6 +93,9 @@ vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", { silent = true })
 vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", { silent = true })
 -- Toggle Filemanager
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
+
+-- Quick format in normal mode
+vim.keymap.set("n", "+", "V=")
 
 vim.keymap.set("n", "<C-,>", "^")
 vim.keymap.set("n", "<C-.>", "$")
@@ -119,9 +126,9 @@ vim.keymap.set(
 vim.keymap.set("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
 
 --- Terminal
-vim.keymap.set("n", "<leader>t", ":5sv<CR>:enew<CR>:terminal<CR>")
+vim.keymap.set("n", "<leader>t", ":20sv<CR>:enew<CR>:terminal<CR>")
 --- Quick build or runnning of a program
-vim.keymap.set("n", "<leader>r", ":10sv<CR>:enew<CR>:terminal ")
+vim.keymap.set("n", "<leader>r", ":20sv<CR>:enew<CR>:terminal ")
 -- Exit terminal mode
 vim.keymap.set("t", "<C-k><C-k>", "<C-\\><C-n>:bd!<CR>")
 -- vim.keymap.set("n", "<C-t>t", "<cmd>tabnew<CR>")
@@ -132,14 +139,18 @@ vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>")
 -- Different keys for system registery yank and paste
 vim.keymap.set("x", "<leader>p", '"_dP')
-vim.keymap.set("n", "<leader>p", '"+p')
-vim.keymap.set("v", "<leader>p", '"+p')
-vim.keymap.set("n", "<leader>y", '"+y')
-vim.keymap.set("n", "<leader>Y", '"+Y')
-vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "P", '"+p')
+vim.keymap.set("v", "P", '"+p')
+vim.keymap.set("n", "Y", '"+Y')
+vim.keymap.set("v", "Y", '"+y')
+
+-- neovvim buffer yank
+vim.keymap.set("n", "yy", "VY")
+vim.keymap.set("v", "yy", "VY")
+
 -- vim.keymap.set("n", "<leader>d", '"_d') -----deleting into the void register N:mode
 vim.keymap.set("v", "<leader>d", '"_d') --- deleting into the void register V:mode
-vim.keymap.set("n", "Y", "Vy")
+-- vim.keymap.set("n", "Y", "Vy")
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",

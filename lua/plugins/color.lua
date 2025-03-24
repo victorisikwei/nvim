@@ -5,7 +5,7 @@ return {
 		-- vim.opt.termguicolors = true
 		vim.cmd.colorscheme("melange")
 		vim.api.nvim_set_hl(0, "Normal", { bg = "#0E0E0E", fg = "#E2BC9C" })
-		vim.api.nvim_set_hl(0, "Visual", { bg = "#2C2C2C", fg = "#DB7D73" })
+		vim.api.nvim_set_hl(0, "Visual", { bg = "#241C1C", fg = "#DB7D73" })
 		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 		vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none", fg = "none" })
 		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#140608" })
