@@ -88,9 +88,13 @@ vim.keymap.set("n", "<leader>q", ":bd!<CR>")
 vim.keymap.set("n", "<leader>1", "<cmd>silent only!<CR>") -- NOTE: check <cmd> vs ":"
 -- vim.keymap.set("n", "<C-f>", ":e ~/.config/nvim/init.lua<CR>")
 -- Tabs and switching tabs
-vim.keymap.set("n", "<C-n>", "<cmd>tabnew<CR>", { silent = true })
-vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", { silent = true })
-vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", { silent = true })
+-- vim.keymap.set("n", "<C-n>", "<cmd>tabnew<CR>", { silent = true })
+-- vim.keymap.set("n", "<Tab>", "<cmd>tabn<CR>", { silent = true })
+-- vim.keymap.set("n", "<S-Tab>", "<cmd>tabp<CR>", { silent = true })
+
+vim.keymap.set("n", "<Tab>", "<cmd>bn<CR>", { silent = true })
+vim.keymap.set("n", "<S-Tab>", "<cmd>bp<CR>", { silent = true })
+
 -- Toggle Filemanager
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
 
