@@ -1,13 +1,16 @@
 return {
-	"ellisonleao/gruvbox.nvim",
-	lazy = false,
-	priority = 1000,
-	opts = {},
-	-- you can set set configuration options here
-	config = function()
-		vim.cmd("set termguicolors")
-		vim.cmd.colorscheme("gruvbox")
-		vim.cmd("set background=light")
-		vim.api.nvim_set_hl(0, "Visual", { bg = "#A8B4C0" })
-	end,
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+        require('nordic').load()
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+        vim.api.nvim_set_hl(0, "FloatBorder", { fg = "none" })
+    end
+    -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1e2326" })
+    -- -- vim.api.nvim_set_hl(0, "Visual", { bg = "#708090", fg = "#DEEEED" })
+    -- vim.api.nvim_set_hl(0, "Whitespace", { fg = "#2B302C" })
+    -- -- vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+    -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#23282A" })
+    -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#575F63" })
 }
