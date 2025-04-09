@@ -17,7 +17,7 @@ vim.opt.splitright = true
 vim.opt.laststatus = 3 -- always and ONLY the last window
 vim.opt.splitbelow = true
 vim.opt.undofile = true
--- vim.opt.whichwrap = "bs<>[]hl"
+vim.opt.whichwrap = "bs<>[]hl"
 vim.opt.smartindent = true
 -- vim.opt.confirm = true
 vim.opt.updatetime = 80
@@ -101,11 +101,6 @@ vim.keymap.set("n", "<leader>.", ":e ~/")
 vim.keymap.set("n", "yy", "VY")
 vim.keymap.set("v", "yy", "VY")
 
--- Mini.Pick helper key mappings
-vim.keymap.set("n", "<leader>f", "<cmd>Pick files<CR>")
-vim.keymap.set("n", "<leader>b", "<cmd>Pick buffers<CR>")
-vim.keymap.set("n", "<leader>lg", "<cmd>Pick grep_live<CR>")
-vim.keymap.set("n", "<leader>g", "<cmd>Pick grep<CR>")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
