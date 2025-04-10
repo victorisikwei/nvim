@@ -10,7 +10,7 @@ return {
     -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1e2326" })
     -- -- vim.api.nvim_set_hl(0, "Visual", { bg = "#708090", fg = "#DEEEED" })
     -- vim.api.nvim_set_hl(0, "Whitespace", { fg = "#2B302C" })
+    -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#292E3B" })
     -- -- vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-    -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#23282A" })
     -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#575F63" })
 }
