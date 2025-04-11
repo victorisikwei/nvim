@@ -1,5 +1,12 @@
 return {
-	cmd = { "gopls" },
-	root_markers = { ".go" },
-	filetypes = { "go" }
+    cmd = { "gopls" },
+    filetypes = { "go" },
+    root_markers = { ".go" },
+    settings = {
+        Go = {
+            runtime = {
+                version = '*'
+            }
+        }
+    }
 }

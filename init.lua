@@ -38,6 +38,9 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 
 vim.keymap.set("n", ";", ":")
 
+-- Kill all buffers except the current one
+vim.keymap.set("n", "<C-k>", "<cmd>%bd|e#<CR>")
+
 -- move to next tab
 vim.keymap.set("n", "<leader>n", ":tabNext<CR>", { silent = true })
 
@@ -119,12 +122,24 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
+
 -- Enable the LSPs server
+-- Defined in init.lua
+vim.lsp.config('gopls', {
+    filetypes = { 'go' },
+})
+
 vim.lsp.enable({
     'lua-language-server',
     'ols',
-    -- "gopls",
     --'yamlls'
+})
+vim.diagnostic.config({ virtual_text = true })
+
+vim.diagnostic.config({
+    virtual_lines = {
+        current_line = true,
+    },
 })
 
 ------STARTUP LAZY PLUGIN MANAGER-------------

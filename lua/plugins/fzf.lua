@@ -10,6 +10,7 @@ return {
         -- Refer: https://github.com/ibhagwan/fzf-lua/blob/main/lua/fzf-lua/defaults.lua
         local file_win_opts = {
             fullscreen = true,
+            border = "none",
             preview = {
                 layout = "vertical",
                 vertical = "up:70%",
