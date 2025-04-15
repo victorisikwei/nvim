@@ -9,9 +9,9 @@ vim.opt.ignorecase = true
 vim.opt.wrap = false
 -- vim.opt.smartcase = true
 vim.opt.incsearch = true
-vim.opt.cursorline = false
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.cursorline = true
+-- vim.opt.number = true
+-- vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.laststatus = 3 -- always and ONLY the last window
@@ -20,15 +20,16 @@ vim.opt.undofile = true
 vim.opt.whichwrap = "bs<>[]hl"
 vim.opt.smartindent = true
 -- vim.opt.confirm = true
-vim.opt.updatetime = 80
-vim.opt.timeoutlen = 80
+vim.opt.updatetime = 60
+vim.opt.timeoutlen = 60
 vim.opt.autochdir = true
 vim.opt.showtabline = 0
-vim.opt.signcolumn = "no"
+vim.opt.signcolumn = "yes"
 -- vim.opt.list = true
 vim.g.mapleader = " "
-vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
+vim.opt.fillchars:append({ eob = "~" }) -- remove [~] character from nvim
 vim.o.winborder = 'rounded'
+vim.g.termguicolors = 1
 
 ---------KEYMAPS---------
 ---======================================
@@ -38,12 +39,14 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 
 vim.keymap.set("n", ";", ":")
 
+vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set("i", "kj", "<Esc>")
+
 -- Kill all buffers except the current one
 vim.keymap.set("n", "<C-k>", "<cmd>%bd|e#<CR>")
 
 -- move to next tab
-vim.keymap.set("n", "<leader>n", ":tabNext<CR>", { silent = true })
-
+vim.keymap.set("n", "<C-n>", ":tabNext<CR>", { silent = true })
 
 -- kill all buffer except the current one
 vim.keymap.set("n", "<leader>bk", "<cmd>%bd|e#<CR>")
@@ -72,10 +75,10 @@ vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", { silent = true })
 
 -- Easy window movement
-vim.keymap.set("n", "<leader>l", "<C-w>l")
-vim.keymap.set("n", "<leader>h", "<C-w>h")
-vim.keymap.set("n", "<leader>k", "<C-w>k")
-vim.keymap.set("n", "<leader>j", "<C-w>j")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
 
 -- past into command mode from system clipboard
 vim.keymap.set("i", "<C-S-V>", "<C-R>+")
@@ -87,6 +90,11 @@ vim.keymap.set("v", ">", ">gv^")
 --- Terminal
 vim.keymap.set("n", "<leader>t", ":tabnew<CR>:terminal<CR>")
 vim.keymap.set("n", "<leader>r", ":terminal ")
+
+-- Toggle Dashboard
+vim.keymap.set("n", "<leader>2", function()
+    Snacks.dashboard()
+end, { desc = "Open Snacks dashboard" })
 
 -- Different keys for system registery yank and paste
 vim.keymap.set("v", "<leader>d", '"_d') --- deleting into the void register V:mode
@@ -122,16 +130,44 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
+-- MARKDOWN.
+-- vim.keymap.set("n", "gx", function()
+--     local file = vim.fn.expand("<cfile>")
+--     if file:match("^https?://") then
+--         vim.fn.jobstart({ "xdg-open", file }, { detach = true })
+--     else
+--         vim.cmd("edit " .. file)
+--     end
+-- end)
+
+-- this autocomand let's you use <CR> to follow
+-- links and relative paths when in a markdown file.
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.keymap.set("n", "<CR>", function()
+            local file = vim.fn.expand("<cfile>")
+            if file:match("^https?://") then
+                vim.fn.jobstart({ "xdg-open", file }, { detach = true })
+            elseif vim.fn.filereadable(file) == 1 or vim.fn.isdirectory(file) == 1 then
+                vim.cmd("edit " .. file)
+            else
+                -- Fallback to default <CR>
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)
+            end
+        end, { buffer = true, desc = "Smart open for markdown links and URLs" })
+    end
+})
+
 
 -- Enable the LSPs server
 -- Defined in init.lua
-vim.lsp.config('gopls', {
-    filetypes = { 'go' },
-})
 
 vim.lsp.enable({
     'lua-language-server',
     'ols',
+    'go',
+    'zls',
     --'yamlls'
 })
 vim.diagnostic.config({ virtual_text = true })

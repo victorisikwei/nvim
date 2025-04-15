@@ -5,7 +5,7 @@ return {
     config = function()
         require('nordic').load()
         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-        vim.api.nvim_set_hl(0, "FloatBorder", { fg = "none" })
+        vim.api.nvim_set_hl(0, "FloatBorder", { fg = "none", bg = "none" })
     end
     -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1e2326" })
     -- -- vim.api.nvim_set_hl(0, "Visual", { bg = "#708090", fg = "#DEEEED" })

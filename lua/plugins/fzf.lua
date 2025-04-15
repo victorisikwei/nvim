@@ -25,7 +25,7 @@ return {
             files = { winopts = file_win_opts },
             buffers = { winopts = file_win_opts },
             grep = { winopts = file_win_opts },
-            -- oldfiles = { winopts = file_win_opts },
+            oldfiles = { winopts = file_win_opts },
             git = {
                 files = {
                     winopts = file_win_opts,
@@ -34,9 +34,11 @@ return {
         }
     end,
     keys = {
-        { "<leader>f", function() require('fzf-lua').files({ cwd = '~/' }) end, desc = "find files in $HOME" },
+        { "<leader>f", function() require('fzf-lua').files({ cwd = '~/' }) end, desc = "find files in the home directory" },
+        { "<leader>`", function() require('fzf-lua').files({ cwd = '/' }) end,  desc = "find files in the system" },
         { "<leader>p", function() require('fzf-lua').files({ cwd = './' }) end, desc = "find files in the current working directory" },
-        { "<leader>b", function() require('fzf-lua').buffers() end,             desc = "find files in $HOME" },
-        { "<leader>g", function() require('fzf-lua').live_grep() end,           desc = "find files in $HOME" },
+        { "<leader>b", function() require('fzf-lua').buffers() end,             desc = "find buffers" },
+        { "<leader>g", function() require('fzf-lua').grep() end,                desc = "find grep file" },
+        { "<leader>l", function() require('fzf-lua').live_grep() end,           desc = "live grep" },
     },
 }

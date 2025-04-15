@@ -32,7 +32,7 @@ return {
                     indent = 3,
                 },
                 { section = "startup" },
-            }
+            },
         },
         notifier = {
             enabled = true
