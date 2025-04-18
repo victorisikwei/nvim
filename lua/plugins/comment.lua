@@ -4,10 +4,10 @@ return {
         padding = true,
         sticky = true,
         toggler = {
-            line = " v",
+            line = ",",
         },
         opleader = {
-            line = ' v',
+            line = ',',
         },
     },
 }

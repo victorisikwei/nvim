@@ -1,3 +1,4 @@
+-- vim.opt.guicursor = "n-v-c:block,i:block"
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
@@ -31,6 +32,46 @@ vim.opt.fillchars:append({ eob = "~" }) -- remove [~] character from nvim
 vim.o.winborder = 'rounded'
 vim.g.termguicolors = 1
 
+
+-- global flag to track zoom state
+-- ZOOMED = false
+--
+-- function ZoomStatus()
+--     if ZOOMED then
+--         return " ZOOM "
+--     end
+--     return ""
+-- end
+
+-------NEOVIDE STUFFS--------
+if vim.g.neovide then
+    vim.o.guifont = "IBM Plex Mono:h6.5" -- text below applies for VimScript
+    -- vim.o.guifont = "FantasqueSansM Nerd Font:h5.4b" -- text below applies for VimScript
+    vim.g.neovide_hide_mouse_when_typing = true
+    -- vim.g.neovide_cursor_animation_length = 0.13
+    vim.g.neovide_cursor_trail_size = 0.1
+    -- vim.g.neovide_cursor_animation_length = 0.05
+    -- vim.g.neovide_cursor_vfx_mode = "torpedo"
+    vim.g.neovide_cursor_smooth_blink = true
+    vim.g.neovide_cursor_vfx_mode = "sonicboom"
+    vim.g.neovide_cursor_vfx_mode = "railgun"
+    vim.g.neovide_cursor_vfx_mode = "pixiedust"
+
+    -- Scaling
+    vim.keymap.set(
+        "n",
+        "<C-=>",
+        ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>",
+        { silent = true }
+    )
+    vim.keymap.set(
+        "n",
+        "<C-->",
+        ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>",
+        { silent = true }
+    )
+end
+
 ---------KEYMAPS---------
 ---======================================
 ---=====================================
@@ -38,6 +79,8 @@ vim.g.termguicolors = 1
 vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 
 vim.keymap.set("n", ";", ":")
+
+vim.keymap.set("c", "<C-v>", "<C-r>+") -- command mode paste
 
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("i", "kj", "<Esc>")
@@ -47,9 +90,6 @@ vim.keymap.set("n", "<C-k>", "<cmd>%bd|e#<CR>")
 
 -- move to next tab
 vim.keymap.set("n", "<C-n>", ":tabNext<CR>", { silent = true })
-
--- kill all buffer except the current one
-vim.keymap.set("n", "<leader>bk", "<cmd>%bd|e#<CR>")
 
 --- move stuff
 -- vim.keymap.set("n", "Q", "<nop>") --- TODO: Check what this do latter
@@ -65,7 +105,7 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>c", ":close<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>1", "<cmd>only!<CR>", { silent = true }) -- NOTE: check <cmd> vs ":"
-vim.keymap.set("i", "<leader>1", "<cmd>only!<CR>", { silent = true }) -- NOTE: check <cmd> vs ":"
+-- vim.keymap.set("i", "<leader>1", "<cmd>only!<CR>", { silent = true }) -- NOTE: check <cmd> vs ":"
 vim.keymap.set("t", "<leader>1", "<cmd>only!<CR>", { silent = true }) -- NOTE: check <cmd> vs ":"
 
 -- Resize with arrows
@@ -88,8 +128,8 @@ vim.keymap.set("v", "<", "<gv^")
 vim.keymap.set("v", ">", ">gv^")
 
 --- Terminal
-vim.keymap.set("n", "<leader>t", ":tabnew<CR>:terminal<CR>")
-vim.keymap.set("n", "<leader>r", ":terminal ")
+vim.keymap.set("n", "<leader>t", ":20sv<CR>:enew<CR>:terminal<CR>")
+-- vim.keymap.set("n", "<leader>r", ":terminal ")
 
 -- Toggle Dashboard
 vim.keymap.set("n", "<leader>2", function()
