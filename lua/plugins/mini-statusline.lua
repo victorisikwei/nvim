@@ -7,18 +7,18 @@ return {
         ZOOMED = false
 
         -- Function to toggle zoom mode
-        function ToggleZoom()
-            if not ZOOMED then
-                vim.cmd("tabnew %")
-                ZOOMED = true
-            else
-                vim.cmd("close")
-                ZOOMED = false
-            end
-        end
+        -- function ToggleZoom()
+        --     if not ZOOMED then
+        --         vim.cmd("tabnew %")
+        --         ZOOMED = true
+        --     else
+        --         vim.cmd("close")
+        --         ZOOMED = false
+        --     end
+        -- end
 
         -- Keybinding to toggle zoom mode with Ctrl + m
-        vim.keymap.set("n", "<C-m>", ToggleZoom, { desc = "Toggle Zoom Tab" })
+        -- vim.keymap.set("n", "<C-m>", ToggleZoom, { desc = "Toggle Zoom Tab" })
 
         -- Setup mini.statusline with custom active content
         require('mini.statusline').setup({
@@ -34,7 +34,7 @@ return {
                     local location      = MiniStatusline.section_location({ trunc_width = 75 })
                     local search        = MiniStatusline.section_searchcount({ trunc_width = 75 })
                     -- Define the zoom indicator
-                    local zoom          = ZOOMED and '[ZOOMED]' or ''
+                    -- local zoom          = ZOOMED and '[ZOOMED]' or ''
 
                     return MiniStatusline.combine_groups({
                         { hl = mode_hl,                 strings = { mode } },
@@ -42,7 +42,7 @@ return {
                         '%<', -- Mark general truncate point
                         { hl = 'MiniStatuslineFilename', strings = { filename } },
                         '%=', -- End left alignment
-                        { hl = 'MiniStatuslineZoom',     strings = { zoom } },
+                        -- { hl = 'MiniStatuslineZoom',     strings = { zoom } },
                         '%=',
                         { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
                         { hl = mode_hl,                  strings = { search, location } },
