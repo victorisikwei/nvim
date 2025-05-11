@@ -51,6 +51,9 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set("i", "kj", "<Esc>")
+
 -- go to normal mode in the terminal
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
@@ -61,6 +64,15 @@ vim.keymap.set("n", "<C-Up>", ":resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Down>", ":resize -1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", { silent = true })
+
+-- window navigation
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+
+-- Run terminal command
+vim.keymap.set("n", "<leader>t", ":terminal ")
 
 -- past into command mode from system clipboard
 vim.keymap.set("i", "<C-S-V>", "<C-R>+")
@@ -135,6 +147,14 @@ vim.diagnostic.config({
     virtual_lines = {
         current_line = true,
     },
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf })
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = args.buf })
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = args.buf })
+    end,
 })
 
 ------STARTUP LAZY PLUGIN MANAGER-------------
