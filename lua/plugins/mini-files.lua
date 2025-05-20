@@ -52,7 +52,7 @@ return {
             -- Module mappings created only inside explorer.
             -- Use `''` (empty string) to not create one.
             mappings = {
-                close = "<Esc>",
+                close = "<C-q>",
                 go_in = "=",
                 go_in_plus = "<CR>",
                 go_out = "-",
@@ -63,7 +63,7 @@ return {
                 reset = "<BS>",
                 reveal_cwd = "@",
                 show_help = "g?",
-                synchronize = " a",
+                synchronize = "<C-a>",
                 trim_left = "<",
                 trim_right = ">",
             },

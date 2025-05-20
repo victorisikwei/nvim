@@ -84,7 +84,7 @@ return {
         -- Convenience function that simply calls `:colorscheme <theme>` with the theme
         -- specified in your config.
         require("black-metal").load()
-        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none", fg = "#aaaaaa" })
         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
     end,

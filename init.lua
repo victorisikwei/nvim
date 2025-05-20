@@ -1,4 +1,6 @@
+vim.opt.guicursor = "n:block"
 vim.opt.expandtab = true
+vim.opt.showmode = false
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.sidescrolloff = 8
@@ -9,8 +11,8 @@ vim.opt.ignorecase = true
 vim.opt.wrap = false
 vim.opt.incsearch = true
 vim.opt.cursorline = true
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- vim.opt.number = true
+-- vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.splitright = true
 vim.opt.laststatus = 3 -- always and ONLY the last window
@@ -29,18 +31,28 @@ vim.opt.fillchars:append({ eob = "~" }) -- remove [~] character from nvim
 vim.o.winborder = 'rounded'
 vim.g.termguicolors = 1
 
+------Neovide Stuffs--------
+vim.g.neovide_theme = 'auto'
+vim.o.guifont = "ComicShannsMono Nerd Font:h16"
+vim.g.neovide_cursor_animation_length = 0.154
+vim.g.neovide_cursor_trail_size = 0.0
+vim.g.neovide_cursor_vfx_mode = "torpedo"
+-- vim.g.neovide_cursor_vfx_mode = "sonicboom"
+vim.g.neovide_text_gamma = 0.0
+vim.g.neovide_text_contrast = 1.5
+vim.g.neovide_opacity = 0.8
+vim.g.neovide_normal_opacity = 0.8
+vim.g.neovide_cursor_hack = true
+vim.g.neovide_hide_mouse_when_typing = true
+
 ---------KEYMAPS---------
----======================================
----=====================================
-
 vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
-
 vim.keymap.set("n", ";", ":")
-
 vim.keymap.set("c", "<C-v>", "<C-r>+") -- command mode paste
-
 vim.keymap.set("n", "-", "$")
 vim.keymap.set("v", "-", "$")
+
+vim.keymap.set("n", "!", "<cmd>only!<CR>", { silent = true }) --collaps all windows except the focused one.
 
 --- move stuff
 -- vim.keymap.set("n", "Q", "<nop>") --- TODO: Check what this do latter
@@ -51,13 +63,12 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
-vim.keymap.set("i", "jk", "<Esc>")
-vim.keymap.set("i", "kj", "<Esc>")
+-- Split windows
+vim.keymap.set("n", "|", "<cmd>vs<CR>", {silent = true}) -- split horizontal
+vim.keymap.set("n", "_", "<cmd>sv<CR>", {silent = true}) -- split vertical
 
--- go to normal mode in the terminal
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-
-vim.keymap.set("n", "<leader>1", "<cmd>only!<CR>", { silent = true }) -- NOTE: check <cmd> vs ":"
+-- close window
+vim.keymap.set("n", "Q", "<cmd>close<CR>", {silent = true}) -- close window
 
 -- Resize with arrows
 vim.keymap.set("n", "<C-Up>", ":resize +1<CR>", { silent = true })
@@ -65,14 +76,29 @@ vim.keymap.set("n", "<C-Down>", ":resize -1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", { silent = true })
 
+-- save file write to a root owned file
+vim.api.nvim_create_user_command("W", function()
+  vim.cmd("SudaWrite")
+end, {})
+
+
 -- window navigation
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 
+-- TERMINAL MAPPINGS HERE
+--
 -- Run terminal command
-vim.keymap.set("n", "<leader>t", ":terminal ")
+vim.keymap.set("n", "T", ":terminal ")
+-- go to normal mode in the terminal
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+-- Tabs operations 
+vim.keymap.set("n", "@", "<cmd>tabnew<CR>", {silent = true})
+vim.keymap.set("n", ")", "<cmd>tabnext<CR>", {silent = true})
+vim.keymap.set("n", "(", "<cmd>tabprevious<CR>", {silent = true})
 
 -- past into command mode from system clipboard
 vim.keymap.set("i", "<C-S-V>", "<C-R>+")
@@ -95,6 +121,42 @@ vim.keymap.set("n", "<leader>.", ":e ~/")
 -- yank entire line
 vim.keymap.set("n", "yy", "VY")
 vim.keymap.set("v", "yy", "VY")
+
+
+-- FZF-LUA COMMANDS
+vim.api.nvim_create_user_command("P", function()
+    vim.cmd("FzfLua files")
+end, {})
+
+vim.api.nvim_create_user_command("F", function()
+    vim.cmd("FzfLua files cwd=~/")
+end, {})
+
+vim.api.nvim_create_user_command("S", function()
+    vim.cmd("FzfLua files cwd=/")
+end, {})
+
+vim.api.nvim_create_user_command("B", function()
+    vim.cmd("FzfLua buffers")
+end, {})
+
+vim.api.nvim_create_user_command("L", function()
+    vim.cmd("FzfLua live_grep")
+end, {})
+
+vim.api.nvim_create_user_command("G", function()
+    vim.cmd("FzfLua grep_cword")
+end, {})
+
+
+-- fzf mappings
+vim.keymap.set("n", ".", "<cmd>F<CR>", {silent = true})
+vim.keymap.set("n", "P", "<cmd>P<CR>", {silent = true})
+vim.keymap.set("n", "S", "<cmd>S<CR>", {silent = true})
+vim.keymap.set("n", "B", "<cmd>B<CR>", {silent = true})
+vim.keymap.set("n", "L", "<cmd>L<CR>", {silent = true})
+vim.keymap.set("n", "G", "<cmd>G<CR>", {silent = true})
+
 
 
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -130,7 +192,6 @@ vim.api.nvim_create_autocmd("FileType", {
         end, { buffer = true, desc = "Smart open for markdown links and URLs" })
     end
 })
-
 
 -- Enable the LSPs server
 vim.lsp.enable({
