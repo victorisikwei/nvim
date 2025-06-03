@@ -69,7 +69,7 @@ vim.keymap.set("n", "<C-Down>", ":resize -1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", { silent = true })
 --- Compiling
-vim.keymap.set("n", "<leader>cc", ":hor make", {noremap = true})
+vim.keymap.set("n", "<leader>cc", ":make", {noremap = true})
 -- Turn off numbers or relative numbers in terminal mode
 vim.api.nvim_create_autocmd("TermOpen", {
     group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
