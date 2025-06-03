@@ -31,6 +31,11 @@ return {
                     winopts = file_win_opts,
                 },
             },
+            vim.keymap.set("n", "<leader>f.",  "<cmd>FzfLua files cwd=~/<CR>"),
+            vim.keymap.set("n", "<leader>ff.", "<cmd>FzfLua files cwd=/<CR>"),
+            vim.keymap.set("n", "<leader>bb",  "<cmd>FzfLua buffers<CR>"),
+            vim.keymap.set("n", "<leader>sw",  "<cmd>FzfLua grep_cword<CR>"),
+            vim.keymap.set("n", "<leader>s/",  "<cmd>FzfLua live_grep_native<CR>"),
         }
     end,
 }

@@ -8,7 +8,6 @@ return {
             --
             -- Can be one of: bathory | burzum | dark-funeral | darkthrone | emperor | gorgoroth | immortal | impaled-nazarene | khold | marduk | mayhem | nile | taake | thyrfing | venom | windir
             theme = "bathory",
-            -- theme = "burzum",
             -- Can be one of: 'light' | 'dark', or set via vim.o.background
             variant = "dark",
             -- Use an alternate, lighter bg
@@ -84,9 +83,16 @@ return {
         -- Convenience function that simply calls `:colorscheme <theme>` with the theme
         -- specified in your config.
         require("black-metal").load()
-        vim.api.nvim_set_hl(0, "Normal", { bg = "none", fg = "#aaaaaa" })
-        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+        -- vim.api.nvim_set_hl(0, "Normal", { bg = "none", fg = "#aaaaaa" })
+        -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
+        -- vim.api.nvim_set_hl(0, "PmenuKind", {bg = "none"})
+        -- vim.api.nvim_set_hl(0, "Popup", {bg = "none"})
+        -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#181C1D" })
+        -- vim.api.nvim_set_hl(0, "SignColumn", { bg = "#272935"})
+        vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#fbcb97", fg = "#060f23"} )
+        vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#fbcb97", fg = "#060f23"})
+ 
     end,
 }        
 
