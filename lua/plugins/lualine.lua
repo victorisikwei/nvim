@@ -10,7 +10,7 @@ return {
         -- Color table for highlights
         -- stylua: ignore
         local colors = {
-            bg       = '#202328',
+            bg       = '#170B1F',
             fg       = '#bbc2cf',
             yellow   = '#ECBE7B',
             cyan     = '#008080',
@@ -28,7 +28,7 @@ return {
                 return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
             end,
             hide_in_width = function()
-                return vim.fn.winwidth(0) > 80
+                return vim.fn.winwidth(0) > 50
             end,
             check_git_workspace = function()
                 local filepath = vim.fn.expand('%:p:h')
@@ -133,12 +133,12 @@ return {
         ins_left {
             'filename',
             cond = conditions.buffer_not_empty,
-            color = { fg = colors.magenta, gui = 'bold' },
+            color = { fg = colors.magenta, gui = 'none' },
         }
 
         ins_left { 'location' }
 
-        ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+        ins_left { 'progress', color = { fg = colors.fg, gui = 'none' } }
 
         ins_left {
             'diagnostics',
@@ -162,7 +162,7 @@ return {
         ins_left {
             -- Lsp server name .
             function()
-                local msg = 'No Active Lsp'
+                local msg = 'no active lsp'
                 local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
                 local clients = vim.lsp.get_clients()
                 if next(clients) == nil then
@@ -176,8 +176,8 @@ return {
                 end
                 return msg
             end,
-            icon = ' LSP:',
-            color = { fg = '#ffffff', gui = 'bold' },
+            icon = ' lsp:',
+            color = { fg = '#bbc2cf', gui = 'none' },
         }
 
         -- Add components to right sections
@@ -185,20 +185,20 @@ return {
             'o:encoding', -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
             cond = conditions.hide_in_width,
-            color = { fg = colors.green, gui = 'bold' },
+            color = { fg = colors.green, gui = 'none' },
         }
 
         ins_right {
             'fileformat',
             fmt = string.upper,
             icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-            color = { fg = colors.green, gui = 'bold' },
+            color = { fg = colors.green, gui = 'none' },
         }
 
         ins_right {
             'branch',
             icon = '',
-            color = { fg = colors.violet, gui = 'bold' },
+            color = { fg = colors.violet, gui = 'none' },
         }
 
         ins_right {

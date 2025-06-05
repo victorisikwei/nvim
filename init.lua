@@ -27,7 +27,7 @@ vim.opt.showtabline = 1
 vim.opt.signcolumn = "no"
 -- vim.opt.list = true
 vim.g.mapleader = " "
-vim.opt.fillchars:append({ eob = "~" }) -- remove [~] character from nvim
+vim.opt.fillchars:append({ eob = " " }) -- remove [~] character from nvim
 vim.o.winborder = 'rounded'
 vim.g.termguicolors = 1
 ---------KEYMAPS---------
@@ -69,7 +69,7 @@ vim.keymap.set("n", "<C-Down>", ":resize -1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", { silent = true })
 --- Compiling
-vim.keymap.set("n", "<leader>cc", ":make", {noremap = true})
+vim.keymap.set("n", "<leader>cc", ":hor terminal ", {noremap = true})
 -- Turn off numbers or relative numbers in terminal mode
 vim.api.nvim_create_autocmd("TermOpen", {
     group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
@@ -78,6 +78,34 @@ vim.api.nvim_create_autocmd("TermOpen", {
         vim.opt.relativenumber = false
     end,
 })
+
+-- Working with scratch buffer.
+local scratch_bufnr = nil
+local scratch_winid = nil
+
+vim.keymap.set("n", "<leader>bx", function()
+    local current_buf = vim.api.nvim_get_current_buf()
+    -- If we're already in the scratch buffer: close the window
+    if scratch_bufnr and current_buf == scratch_bufnr then
+        if scratch_winid and vim.api.nvim_win_is_valid(scratch_winid) then
+            vim.api.nvim_win_close(scratch_winid, false)
+        end
+        scratch_winid = nil
+        return
+    end
+    -- Create scratch buffer if it doesn't exist
+    if not (scratch_bufnr and vim.api.nvim_buf_is_valid(scratch_bufnr)) then
+        scratch_bufnr = vim.api.nvim_create_buf(false, true) -- listed = false, scratch = true
+        vim.api.nvim_buf_set_name(scratch_bufnr, "[Scratch]")
+        vim.bo[scratch_bufnr].buftype = "nofile"
+        vim.bo[scratch_bufnr].bufhidden = "hide"
+        vim.bo[scratch_bufnr].swapfile = false
+    end
+    -- Open in vertical split (or change to horizontal if you prefer)
+    vim.cmd("vsplit")
+    scratch_winid = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_buf(scratch_winid, scratch_bufnr)
+end, { desc = "Toggle scratch buffer" })
 -- Highlight text for yanking
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
@@ -86,6 +114,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end,
 })
+
 -- For markdown
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
