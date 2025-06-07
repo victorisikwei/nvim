@@ -68,8 +68,6 @@ vim.keymap.set("n", "<C-Up>", ":resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Down>", ":resize -1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Left>", ":vertical resize +1<CR>", { silent = true })
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", { silent = true })
---- Compiling
-vim.keymap.set("n", "<leader>cc", ":hor terminal ", {noremap = true})
 -- Turn off numbers or relative numbers in terminal mode
 vim.api.nvim_create_autocmd("TermOpen", {
     group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
@@ -132,6 +130,33 @@ vim.api.nvim_create_autocmd("FileType", {
         end, { buffer = true, desc = "Smart open for markdown links and URLs" })
     end
 })
+
+--====================================================
+-- Compiling workflow.
+_G.compile_cmd = ""
+-- Command to set the compile command (e.g. :C)
+vim.api.nvim_create_user_command("C", function()
+    vim.ui.input({ prompt = "Enter compile command: " }, function(input)
+        if input ~= nil and input ~= "" then
+            _G.compile_cmd = input
+            print("Set compile command to: " .. input)
+        else
+            print("No command entered.")
+        end
+    end)
+end, {})
+-- Function to run the compile command
+function _G.run_compile_cmd()
+    if _G.compile_cmd == "" then
+        print("No compile command set. Use :C to set one.")
+    else
+        vim.cmd("hor terminal " .. _G.compile_cmd)
+    end
+end
+-- Keybinding to run compile command
+vim.keymap.set("n", "<leader>cc", _G.run_compile_cmd, { desc = "Run compile command" })
+-- =======================================================
+
 -- collaps all windows except the focused one.
 vim.keymap.set("n", "<leader>wm", function()
     vim.cmd("mksession! ~/.config/nvim/split_session.vim")
@@ -141,6 +166,7 @@ end, { silent = true })
 vim.keymap.set("n", "<leader>wu", function()
   vim.cmd("source ~/.config/nvim/split_session.vim")
 end, { silent = true })
+
 -- Enable the LSPs server
 vim.lsp.enable({
     'lua-language-server',
@@ -149,6 +175,7 @@ vim.lsp.enable({
     -- 'zls',
     --'yamlls'
 })
+
 -- save file write to a root owned file
 vim.api.nvim_create_user_command("W", function()
   vim.cmd("SudaWrite")
